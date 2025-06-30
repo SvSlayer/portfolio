@@ -1,0 +1,771 @@
+/* ======================================= */
+/* 1. Base Styles & Global Resets          */
+/* ======================================= */
+
+html {
+    scroll-behavior: smooth;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #F8EBFF;
+    font-family: 'Press Start 2P', cursive;
+    color: #4C23CD;
+    font-size: 14px;
+    padding-bottom: 30px;
+    font-smooth: never;
+    -webkit-font-smoothing: none;
+    -moz-osx-font-smoothing: grayscale;
+    image-rendering: pixelated;
+}
+
+button, a {
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+    font-family: inherit;
+}
+
+/* ======================================= */
+/* 2. General Window Frame Styling         */
+/* ======================================= */
+.window-frame {
+    border: 2px solid #4C23CD;
+    background-color: #F0D1F1;
+    box-shadow: 2px 2px 0px 0px #808080;
+    position: relative;
+}
+
+.window-frame:target {
+    animation: target-focus-effect 0.5s cubic-bezier(.25,.46,.45,.94) both;
+}
+
+.about-section,
+.skills-section,
+.portfolio-section,
+.contact-section {
+    scroll-margin-top: 170px; 
+}
+
+.window-title-bar {
+    background-color: #EEB1E8;
+    color: #FFFFFF;
+    padding: 4px 8px;
+    font-size: 0.8em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #4C23CD;
+}
+
+.window-title-bar span {
+    background-color: transparent;
+    padding: 0;
+    box-shadow: none;
+    color: #4C23CD;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.title-icon {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background-color: #000000;
+    border: 1px solid #FFFFFF;
+    flex-shrink: 0;
+}
+
+.window-title-bar .controls {
+    display: flex;
+    gap: 4px;
+}
+
+.window-title-bar .controls button {
+    width: 16px;
+    height: 16px;
+    background-color: #F0D1F1;
+    border: 2px solid #4C23CD;
+    border-right-color: #FFFFFF;
+    border-bottom-color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7em;
+    cursor: pointer;
+    color: #4C23CD;
+    flex-shrink: 0;
+    transition: background-color 0.1s ease-out, border 0.1s ease-out;
+}
+
+.window-title-bar .controls button:active {
+    border-color: #FFFFFF;
+    border-right-color: #4C23CD;
+    border-bottom-color: #4C23CD;
+    background-color: #808080;
+}
+
+.window-title-bar .controls .close-btn {
+    background-color: #FF0000;
+}
+
+.window-content-inner {
+    padding: 16px;
+    border: 2px solid #FFFFFF;
+}
+
+/* ======================================= */
+/* 3. Header (Main Navigation) Styles      */
+/* ======================================= */
+.main-header {
+    width: calc(100vw - 52px);
+    max-width: 900px;
+    margin: 0 auto;
+    position: fixed;
+    top: 26px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+}
+
+.main-header nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 16px;
+    background-color: #F0D1F1;
+    border-top: 2px solid #FFFFFF;
+    border-left: 2px solid #FFFFFF;
+    border-bottom: 2px solid #808080;
+    border-right: 2px solid #808080;
+    font-size: 0.9em;
+}
+
+.main-header nav a {
+    color: #4C23CD;
+    text-decoration: none;
+    padding: 4px 8px;
+    font-weight: bold;
+    position: relative;
+    transition: color 0.2s ease-in-out;
+}
+
+.main-header nav a:hover {
+    color: #800080;
+}
+
+.main-header nav a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background-color: transparent;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.main-header nav a:hover::after {
+    background-color: #800080;
+}
+
+.main-header .progress-bars-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 16px;
+    background-color: #F0D1F1;
+    border-top: 2px solid #FFFFFF;
+    border-left: 2px solid #FFFFFF;
+    border-bottom: 2px solid #808080;
+    border-right: 2px solid #808080;
+    font-size: 0.8em;
+}
+
+.progress-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.progress-item span {
+    margin-right: 8px;
+    color: #4C23CD;
+}
+
+.progress-bar-container {
+    width: 150px;
+    height: 25px;
+    border: 2px solid #000000;
+    padding: 2px;
+    background-color: #F0D1F1;
+    box-shadow: inset 1px 1px 0px 0px #808080, inset -1px -1px 0px 0px #FFFFFF;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 18px;
+    border: 1px solid #000000;
+    box-shadow: inset 1px 1px 0px 0px #808080;
+    transition: width 0.3s ease-in-out;
+}
+
+.energy-bar { background-color: #FF0000; width: 80%; }
+.creativity-bar { background-color: #FFFF00; width: 75%; }
+.brain-bar { background-color: #00FF00; width: 50%; }
+
+/* ======================================= */
+/* 4. About Me Section Styles              */
+/* ======================================= */
+.about-section {
+    width: calc(100vw - 72px);
+    max-width: 900px;
+    margin: 0 auto;
+    margin-top: 170px;
+}
+
+.about-content,
+.skills-content,
+.portfolio-content,
+.contact-content {
+    background-color: #FFF8FF;
+}
+
+.about-content {
+    font-size: 0.9em;
+    line-height: 1.6;
+    border-bottom: none;
+}
+
+.about-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.about-header img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 12px;
+    border: 2px solid #000000;
+    flex-shrink: 0;
+}
+
+.about-header .username {
+    font-weight: bold;
+    color: #4C23CD;
+}
+
+.about-header .handle {
+    color: #666666;
+    font-weight: normal;
+}
+
+.about-content p {
+    margin-bottom: 12px;
+    color: #4C23CD;
+}
+
+.about-content a {
+    color: #FF0000;
+    font-weight: bold;
+    text-decoration: none;
+    transition: text-decoration 0.2s ease-in-out;
+}
+
+.about-content a:hover {
+    text-decoration: underline;
+}
+
+.social-stats {
+    display: flex;
+    align-items: center;
+    font-size: 0.7em;
+    color: #4C23CD;
+    margin-top: 20px;
+}
+
+.social-stats .social-icon {
+    font-family: 'Material Symbols Outlined', sans-serif;
+    margin-right: 4px;
+}
+
+/* ======================================= */
+/* 5. Skills Page Styles                   */
+/* ======================================= */
+.skills-section {
+    width: calc(100vw - 72px);
+    max-width: 900px;
+    margin: 20px auto;
+}
+
+.skills-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+}
+
+.skills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+    width: 100%;
+}
+
+.skill-icon-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    padding: 8px;
+    width: 110px;
+    transition: transform 0.2s ease-out;
+}
+
+.skill-icon-item:hover {
+    transform: translateY(-5px);
+}
+
+.skill-icon-item img {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 4px;
+    image-rendering: pixelated;
+}
+
+.skill-icon-item p {
+    font-size: 0.9em;
+    font-weight: bold;
+    color: #4C23CD;
+    margin: 0;
+}
+
+.skill-level {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #4C23CD;
+    color: #FFFFFF;
+    padding: 4px 8px;
+    border-radius: 2px;
+    font-size: 0.7em;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.skill-icon-item:hover .skill-level {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(-5px);
+}
+
+/* ======================================= */
+/* 6. Portfolio Section Styles             */
+/* ======================================= */
+.portfolio-section {
+    /* --- PERBAIKAN DI SINI --- */
+    width: calc(100vw - 72px);
+    max-width: 900px;
+    margin: 20px auto;
+}
+
+.portfolio-content {
+    background-color: #d6e4f0;
+    padding: 30px;
+}
+
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+}
+
+.project-card {
+    display: block;
+    text-decoration: none;
+    background-color: #F0D1F1;
+    border: 2px solid #4C23CD;
+    box-shadow: 2px 2px 0px 0px #808080;
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+
+.project-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 4px 6px 0px 0px #808080;
+}
+
+.project-title-bar {
+    background-color: #EEB1E8;
+    color: #4C23CD;
+    padding: 2px 6px;
+    font-size: 0.7em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #4C23CD;
+}
+
+.project-title-bar .project-controls {
+    display: flex;
+    gap: 3px;
+}
+
+.project-title-bar .project-controls button {
+    width: 12px;
+    height: 12px;
+    background-color: #F0D1F1;
+    border: 1px solid #4C23CD;
+    border-right-color: #FFFFFF;
+    border-bottom-color: #FFFFFF;
+    font-size: 5px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.project-content-area {
+    background-color: #FFF8FF;
+    border: 2px solid #FFFFFF;
+    margin: 4px;
+    min-height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.project-content-area h2 {
+    color: #4C23CD;
+    font-size: 1.5em;
+    text-align: center;
+    padding: 10px;
+}
+
+/* ======================================= */
+/* 7. Contact Section Styles               */
+/* ======================================= */
+.contact-section {
+    /* --- PERBAIKAN DI SINI --- */
+    width: calc(100vw - 72px);
+    max-width: 900px;
+    margin: 20px auto;
+}
+
+.contact-content {
+    background-color: #d6e4f0;
+    padding: 30px;
+}
+
+.contact-grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.contact-left-column {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.contact-sub-window {
+    border: 2px solid #4C23CD;
+    background-color: #F0D1F1;
+    width: 100%;
+}
+
+.chat-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.chat-bubble {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+    background-color: #EEB1E8;
+    border-radius: 8px;
+    max-width: 85%;
+    font-size: 0.8em;
+}
+.chat-bubble.received {
+    align-self: flex-start;
+    border-bottom-left-radius: 0;
+}
+.chat-bubble.sent {
+    background-color: #4C23CD;
+    color: #FFFFFF;
+    align-self: flex-end;
+    border-bottom-right-radius: 0;
+}
+.chat-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+.chat-bubble.sent .chat-avatar {
+    order: 2;
+}
+
+.others-content {
+    text-align: center;
+}
+.others-content p {
+    margin: 0 0 10px 0;
+}
+.social-links-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+.social-links-container img {
+    width: 32px;
+    height: 32px;
+    image-rendering: pixelated;
+    transition: transform 0.2s;
+}
+.social-links-container a {
+    display: inline-block;
+}
+.social-links-container a:hover img {
+    transform: scale(1.1);
+}
+
+.email-form-window {
+    height: 100%;
+}
+.email-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+}
+.form-icon {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 10px auto;
+    image-rendering: pixelated;
+}
+.email-form label {
+    text-align: left;
+    font-size: 0.8em;
+}
+.retro-input {
+    width: 100%;
+    padding: 8px;
+    border: 2px solid #4C23CD;
+    background-color: #FFFFFF;
+    box-shadow: inset 2px 2px 0px 0px #c0c0c0;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.7em;
+    color: #4C23CD;
+}
+.retro-input::placeholder {
+    color: #aaa;
+}
+.send-button {
+    padding: 8px 16px;
+    background-color: #EEB1E8;
+    color: #4C23CD;
+    border: 2px solid #4C23CD;
+    border-top-color: #FFFFFF;
+    border-left-color: #FFFFFF;
+    cursor: pointer;
+    font-weight: bold;
+    align-self: center;
+    margin-top: 10px;
+}
+.send-button:active {
+    background-color: #ce9ac8;
+    border-color: #4C23CD;
+    border-top-color: #808080;
+    border-left-color: #808080;
+}
+
+/* ======================================= */
+/* 8. Loading Screen Styles                */
+/* ======================================= */
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000000;
+    color: #00FF00;
+    font-family: 'Press Start 2P', cursive;
+    z-index: 9999;
+    padding: 20px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 1s ease-out, visibility 1s ease-out;
+}
+
+#loading-screen.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+#boot-text {
+    margin: 0;
+    white-space: pre-wrap;
+    font-size: 1em;
+}
+
+#boot-text::after {
+    content: '█';
+    animation: blink 1s step-end infinite;
+}
+
+/* ======================================= */
+/* 9. Taskbar Styles                       */
+/* ======================================= */
+.taskbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 30px;
+    background-color: #e3c3e4;
+    border-top: 2px solid #FFFFFF;
+    box-shadow: 0px -2px 0px 0px #4C23CD;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 8px;
+    z-index: 1001;
+}
+
+.start-button {
+    background-color: #F0D1F1;
+    border: 2px solid #000000;
+    border-top-color: #FFFFFF;
+    border-left-color: #FFFFFF;
+    padding: 2px 10px;
+    cursor: pointer;
+    font-size: 0.8em;
+    color: #4C23CD;
+    flex-shrink: 0;
+    font-weight: bold;
+    transition: background-color 0.1s ease-out, border 0.1s ease-out;
+}
+
+.start-button:active {
+    border-color: #FFFFFF;
+    border-right-color: #000000;
+    border-bottom-color: #000000;
+    background-color: #808080;
+}
+
+.footer {
+    font-size: 12px;
+}
+
+.taskbar-time {
+    background-color: #F0D1F1;
+    border: 2px solid #808080;
+    border-top-color: #FFFFFF;
+    border-left-color: #FFFFFF;
+    padding: 2px 8px;
+    font-size: 0.8em;
+    color: #4C23CD;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ======================================= */
+/* 10. Responsive Styles & Animations      */
+/* ======================================= */
+
+/* For Tablets (min-width: 768px) */
+@media (min-width: 768px) {
+    .progress-item {
+        margin-bottom: 0;
+    }
+    .portfolio-grid {
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .contact-grid-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* For Desktops (min-width: 1024px) */
+@media (min-width: 1024px) {
+    .portfolio-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .contact-grid-container {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@keyframes target-focus-effect {
+    0% {
+        transform: translate(0, 0);
+        box-shadow: 2px 2px 0px 0px #808080;
+    }
+    20% {
+        transform: translate(-3px, 2px);
+        box-shadow: 2px 2px 0px 0px #808080;
+    }
+    40% {
+        transform: translate(2px, -3px) scale(1.01);
+        box-shadow: 8px 8px 0px #FF00FF, -8px -8px 0px #00FFFF;
+    }
+    60% {
+        transform: translate(-2px, 3px) scale(1);
+        box-shadow: 8px -8px 0px #FFFF00, -8px 8px 0px #00FF00;
+    }
+    80% {
+        transform: translate(0, 0);
+        box-shadow: 2px 2px 0px 0px #808080;
+    }
+    100% {
+        transform: translate(0, 0);
+        box-shadow: 2px 2px 0px 0px #808080;
+    }
+}
+
+@keyframes blink {
+    from, to { color: transparent; }
+    50% { color: #00FF00; }
+}
+
+/* Custom Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 12px;
+}
+::-webkit-scrollbar-track {
+    background: #F0D1F1;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #eb49c0;
+    border: 2px solid #F0D1F1;
+    border-radius: 6px;
+}
