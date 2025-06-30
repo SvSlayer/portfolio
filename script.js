@@ -60,13 +60,13 @@ document.addEventListener('DOMContentLoaded', function() {
             sendButton.textContent = 'SENDING...';
             sendButton.disabled = true;
 
-            fetch('https://formspree.io/f/mgvydonj', { // <--- Baris ini yang akan diubah
+            fetch(import.meta.env.VITE_FORMSPREE_URL, {
                 method: 'POST',
                 body: JSON.stringify(Object.fromEntries(formData)),
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
-                 }
+                }
             }).then(response => {
                 if (response.ok) {
                     sendButton.textContent = 'SENT! :D';
