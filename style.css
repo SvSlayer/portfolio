@@ -370,15 +370,18 @@ p:last-child {
 
 .portfolio-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    /* Membuat kolom yang fleksibel, minimal 350px */
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 30px;
 }
 
 .portfolio-item {
     border: 2px solid #1E90FF; /* Dodger Blue */
     background-color: #FFFFFF;
-    box-shadow: 2px 2px 0 0 #808080, 4px 4px 0 0 #B0C4DE; /* Light Steel Blue shadow */
+    box-shadow: 2px 2px 0 0 #808080, 4px 4px 0 0 #B0C4DE;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex; /* Menggunakan flex untuk tata letak internal */
+    flex-direction: column;
 }
 
 .portfolio-item:hover {
@@ -390,12 +393,14 @@ p:last-child {
     position: relative;
     border-bottom: 2px solid #1E90FF;
     overflow: hidden;
+    height: 200px; /* Memberi tinggi tetap pada gambar container */
 }
 
 .portfolio-image {
     display: block;
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover; /* Memastikan gambar mengisi area tanpa distorsi */
     transition: transform 0.3s ease;
 }
 
@@ -405,6 +410,9 @@ p:last-child {
 
 .portfolio-info {
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Membuat area ini mengisi sisa ruang */
 }
 
 .portfolio-info h3 {
@@ -417,6 +425,7 @@ p:last-child {
     font-size: 0.9em;
     margin-bottom: 15px;
     line-height: 1.6;
+    flex-grow: 1; /* Mendorong tombol ke bawah */
 }
 
 .portfolio-tags {
@@ -456,7 +465,7 @@ p:last-child {
 }
 
 /* ======================================= */
-/* 7. Contact Section Styles               */
+/* 7. Contact Section & Form Styles        */
 /* ======================================= */
 
 .contact-section {
@@ -471,8 +480,9 @@ p:last-child {
 
 .contact-grid-container {
     display: grid;
-    grid-template-columns: 1fr 1.2fr;
+    grid-template-columns: 1fr 1.2fr; /* Kolom kanan sedikit lebih lebar */
     gap: 30px;
+    align-items: start; /* Konten dimulai dari atas */
 }
 
 .contact-info p {
@@ -488,6 +498,7 @@ p:last-child {
     margin-top: 20px;
     display: flex;
     gap: 15px;
+    align-items: center;
 }
 
 .contact-socials a {
@@ -500,10 +511,6 @@ p:last-child {
     color: #DAA520;
     transform: scale(1.2);
 }
-
-/* ======================================= */
-/* 8. Contact Form Styles                  */
-/* ======================================= */
 
 .contact-form .form-group {
     margin-bottom: 20px;
@@ -522,17 +529,18 @@ p:last-child {
     background-color: #FFFFFF;
     border: 2px solid #4C23CD;
     font-size: 1em;
-    box-shadow: inset 2px 2px 0 0 #808080;
+    box-shadow: inset 2px 2px 0 0 rgba(0,0,0,0.15);
     transition: box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
 .contact-form .form-control:focus {
     background-color: #F8EBFF;
-    box-shadow: inset -2px -2px 0 0 #808080;
+    box-shadow: none;
+    outline: 2px solid #9370DB;
 }
 
 .contact-form textarea.form-control {
-    min-height: 150px;
+    min-height: 120px;
     resize: vertical;
 }
 
