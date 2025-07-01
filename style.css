@@ -8,81 +8,58 @@ html {
 
 *, *::before, *::after {
     box-sizing: border-box;
-    cursor: default; /* Default cursor for a desktop feel */
 }
 
 body {
     margin: 0;
     padding: 0;
-    background-color: #F8EBFF; /* Light lavender background */
+    background-color: #F8EBFF;
     font-family: 'Press Start 2P', cursive;
-    color: #4C23CD; /* Main purple text color */
+    color: #4C23CD;
     font-size: 14px;
-    line-height: 1.5;
-    padding-bottom: 50px;
+    padding-bottom: 30px;
     font-smooth: never;
     -webkit-font-smoothing: none;
     -moz-osx-font-smoothing: grayscale;
-    image-rendering: pixelated; /* Crucial for the pixel-art aesthetic */
-    background-image: url('data:image/svg+xml,%3Csvg width="6" height="6" viewBox="0 0 6 6" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%23E6D7F0" fill-opacity="0.4" fill-rule="evenodd"%3E%3Cpath d="M5 0h1L0 6V5zM6 5v1H5z"/%3E%3C/g%3E%3C/svg%3E'); /* Subtle pattern */
+    image-rendering: pixelated;
 }
 
-a, button, input, textarea, select {
+button, a {
     -webkit-tap-highlight-color: transparent;
     outline: none;
     font-family: inherit;
-    color: inherit;
-    cursor: pointer; /* Pointer cursor for interactive elements */
-}
-
-h1, h2, h3, h4, h5, h6 {
-    margin: 0;
-    padding: 0;
-    font-weight: normal;
-}
-
-p {
-    margin: 0 0 1em 0;
-}
-
-p:last-child {
-    margin-bottom: 0;
 }
 
 /* ======================================= */
 /* 2. General Window Frame Styling         */
 /* ======================================= */
-
 .window-frame {
     border: 2px solid #4C23CD;
-    background-color: #F0D1F1; /* Lighter purple for window background */
-    box-shadow: 4px 4px 0px 0px rgba(0,0,0,0.2);
+    background-color: #F0D1F1;
+    box-shadow: 2px 2px 0px 0px #808080;
     position: relative;
-    margin-bottom: 25px;
 }
 
-/* Add a subtle animation when a section is targeted via URL hash */
 .window-frame:target {
-    animation: target-focus-effect 0.6s cubic-bezier(.25,.46,.45,.94) both;
+    animation: target-focus-effect 0.5s cubic-bezier(.25,.46,.45,.94) both;
 }
 
 .about-section,
 .skills-section,
 .portfolio-section,
 .contact-section {
-    scroll-margin-top: 180px; /* Space for the fixed header */
+    scroll-margin-top: 170px; 
 }
 
 .window-title-bar {
-    background-color: #EEB1E8; /* Pinkish title bar */
+    background-color: #EEB1E8;
     color: #FFFFFF;
-    padding: 6px 10px;
-    font-size: 0.9em;
+    padding: 4px 8px;
+    font-size: 0.8em;
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-bottom: 2px solid #4C23CD;
-    user-select: none;
 }
 
 .window-title-bar span {
@@ -92,14 +69,13 @@ p:last-child {
     color: #4C23CD;
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    font-weight: bold;
+    gap: 4px;
 }
 
 .title-icon {
     display: inline-block;
-    width: 14px;
-    height: 14px;
+    width: 12px;
+    height: 12px;
     background-color: #000000;
     border: 1px solid #FFFFFF;
     flex-shrink: 0;
@@ -107,87 +83,95 @@ p:last-child {
 
 .window-title-bar .controls {
     display: flex;
-    gap: 5px;
+    gap: 4px;
 }
 
 .window-title-bar .controls button {
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
     background-color: #F0D1F1;
-    border: 2px solid;
-    border-color: #FFFFFF #808080 #808080 #FFFFFF;
+    border: 2px solid #4C23CD;
+    border-right-color: #FFFFFF;
+    border-bottom-color: #FFFFFF;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.8em;
+    font-size: 0.7em;
+    cursor: pointer;
     color: #4C23CD;
     flex-shrink: 0;
-    box-shadow: 1px 1px 0 0 rgba(0,0,0,0.2);
-    transition: all 0.1s ease-out;
+    transition: background-color 0.1s ease-out, border 0.1s ease-out;
 }
 
 .window-title-bar .controls button:active {
-    border-color: #808080 #FFFFFF #FFFFFF #808080;
-    transform: translate(1px, 1px);
-    box-shadow: none;
+    border-color: #FFFFFF;
+    border-right-color: #4C23CD;
+    border-bottom-color: #4C23CD;
+    background-color: #808080;
 }
 
 .window-title-bar .controls .close-btn {
-    background-color: #FF6666;
-    font-weight: bold;
-}
-
-.window-title-bar .controls .close-btn:hover {
     background-color: #FF0000;
 }
 
 .window-content-inner {
-    padding: 20px;
+    padding: 16px;
     border: 2px solid #FFFFFF;
-    border-top: none;
 }
 
 /* ======================================= */
 /* 3. Header (Main Navigation) Styles      */
 /* ======================================= */
-
 .main-header {
-    width: calc(100% - 40px);
-    max-width: 960px;
+    width: calc(100vw - 52px);
+    max-width: 900px;
     margin: 0 auto;
     position: fixed;
-    top: 20px;
+    top: 26px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 1000;
-    transition: top 0.3s ease-in-out;
 }
 
 .main-header nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
+    padding: 8px 16px;
     background-color: #F0D1F1;
-    border: 2px solid;
-    border-color: #FFFFFF #808080 #808080 #FFFFFF;
-    font-size: 1em;
-    margin-bottom: 8px;
-    box-shadow: 4px 4px 0px 0px rgba(0,0,0,0.2);
+    border-top: 2px solid #FFFFFF;
+    border-left: 2px solid #FFFFFF;
+    border-bottom: 2px solid #808080;
+    border-right: 2px solid #808080;
+    font-size: 0.9em;
 }
 
 .main-header nav a {
     color: #4C23CD;
     text-decoration: none;
-    padding: 5px 10px;
+    padding: 4px 8px;
+    font-weight: bold;
     position: relative;
-    transition: color 0.2s ease-in-out, background-color 0.2s;
-    text-transform: uppercase;
+    transition: color 0.2s ease-in-out;
 }
 
-.main-header nav a:hover, .main-header nav a:focus {
-    color: #FFFFFF;
-    background-color: #800080; /* Purple hover */
+.main-header nav a:hover {
+    color: #800080;
+}
+
+.main-header nav a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background-color: transparent;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.main-header nav a:hover::after {
+    background-color: #800080;
 }
 
 .main-header .progress-bars-section {
@@ -195,561 +179,603 @@ p:last-child {
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
+    padding: 8px 16px;
     background-color: #F0D1F1;
-    border: 2px solid;
-    border-color: #FFFFFF #808080 #808080 #FFFFFF;
+    border-top: 2px solid #FFFFFF;
+    border-left: 2px solid #FFFFFF;
+    border-bottom: 2px solid #808080;
+    border-right: 2px solid #808080;
     font-size: 0.8em;
-    box-shadow: 4px 4px 0px 0px rgba(0,0,0,0.2);
 }
 
 .progress-item {
     display: flex;
     align-items: center;
     margin-bottom: 8px;
-    flex-grow: 1;
 }
 
 .progress-item span {
-    margin-right: 10px;
+    margin-right: 8px;
     color: #4C23CD;
-    font-weight: bold;
-    min-width: 90px;
 }
 
 .progress-bar-container {
-    width: 100%;
-    max-width: 200px;
-    height: 28px;
-    border: 2px solid #4C23CD;
-    padding: 3px;
-    background-color: #E6D7F0; /* Darker inset background */
-    box-shadow: inset 2px 2px 0px 0px rgba(0,0,0,0.2);
+    width: 150px;
+    height: 25px;
+    border: 2px solid #000000;
+    padding: 2px;
+    background-color: #F0D1F1;
+    box-shadow: inset 1px 1px 0px 0px #808080, inset -1px -1px 0px 0px #FFFFFF;
     display: flex;
     align-items: center;
     overflow: hidden;
 }
 
 .progress-bar {
-    height: 100%;
-    box-shadow: inset 1px 1px 0px 0px rgba(255,255,255,0.5);
-    transition: width 0.5s ease-in-out;
-    position: relative;
-    background-image: linear-gradient(45deg, rgba(255,255,255,.15) 25%, transparent 25%, transparent 50%, rgba(255,255,255,.15) 50%, rgba(255,255,255,.15) 75%, transparent 75%, transparent);
-    background-size: 20px 20px;
-    animation: progress-bar-stripes 1s linear infinite;
+    height: 18px;
+    border: 1px solid #000000;
+    box-shadow: inset 1px 1px 0px 0px #808080;
+    transition: width 0.3s ease-in-out;
 }
 
-.energy-bar { background-color: #FF4136; width: 85%; } /* Red */
-.creativity-bar { background-color: #FFDC00; width: 95%; } /* Yellow */
-.caffeine-bar { background-color: #0074D9; width: 70%; } /* Blue */
+.energy-bar { background-color: #FF0000; width: 80%; }
+.creativity-bar { background-color: #FFFF00; width: 75%; }
+.brain-bar { background-color: #00FF00; width: 50%; }
 
 /* ======================================= */
 /* 4. About Me Section Styles              */
 /* ======================================= */
-
 .about-section {
-    width: calc(100% - 40px);
-    max-width: 960px;
+    width: calc(100vw - 72px);
+    max-width: 900px;
     margin: 0 auto;
-    margin-top: 180px; /* Initial top margin */
+    margin-top: 170px;
+}
+
+.about-content,
+.skills-content,
+.portfolio-content,
+.contact-content {
+    background-color: #FFF8FF;
 }
 
 .about-content {
-    background-color: #FFF8FF;
-    line-height: 1.8;
+    font-size: 0.9em;
+    line-height: 1.6;
+    border-bottom: none;
 }
 
 .about-header {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
-    gap: 25px;
+    margin-bottom: 16px;
 }
 
-.about-header .profile-pic {
-    width: 128px;
-    height: 128px;
-    border: 2px solid #4C23CD;
-    padding: 4px;
-    background: #E6D7F0;
-    box-shadow: 2px 2px 0 0 #808080;
+.about-header img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 12px;
+    border: 2px solid #000000;
     flex-shrink: 0;
 }
 
-.about-header h1 {
-    font-size: 2em;
-    margin-bottom: 10px;
+.about-header .username {
+    font-weight: bold;
+    color: #4C23CD;
 }
 
-.about-header h2 {
-    font-size: 1.2em;
-    color: #800080;
-    background: #E6D7F0;
-    padding: 4px 8px;
-    display: inline-block;
-    border: 1px dashed #4C23CD;
+.about-header .handle {
+    color: #666666;
+    font-weight: normal;
 }
 
-.about-text p {
-    font-size: 1.1em;
+.about-content p {
+    margin-bottom: 12px;
+    color: #4C23CD;
+}
+
+.about-content a {
+    color: #FF0000;
+    font-weight: bold;
+    text-decoration: none;
+    transition: text-decoration 0.2s ease-in-out;
+}
+
+.about-content a:hover {
+    text-decoration: underline;
+}
+
+.social-stats {
+    display: flex;
+    align-items: center;
+    font-size: 0.7em;
+    color: #4C23CD;
+    margin-top: 20px;
+}
+
+.social-stats .social-icon {
+    font-family: 'Material Symbols Outlined', sans-serif;
+    margin-right: 4px;
 }
 
 /* ======================================= */
-/* 5. Skills Section Styles                */
+/* 5. Skills Page Styles                   */
 /* ======================================= */
-
 .skills-section {
-    width: calc(100% - 40px);
-    max-width: 960px;
-    margin: 25px auto;
+    width: calc(100vw - 72px);
+    max-width: 900px;
+    margin: 20px auto;
 }
 
 .skills-content {
-    background-color: #F0FFF0; /* Mint green background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
 }
 
 .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+    width: 100%;
 }
 
-.skill-category {
-    border: 2px solid #006400; /* Dark Green */
-    background: #FFFFFF;
+.skill-icon-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    padding: 8px;
+    width: 110px;
+    transition: transform 0.2s ease-out;
 }
 
-.skill-category-title {
-    font-size: 1.1em;
+.skill-icon-item:hover {
+    transform: translateY(-5px);
+}
+
+.skill-icon-item img {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 4px;
+    image-rendering: pixelated;
+}
+
+.skill-icon-item p {
+    font-size: 0.9em;
     font-weight: bold;
-    color: #FFFFFF;
-    background: #2E8B57; /* Sea Green */
-    padding: 8px 12px;
-    border-bottom: 2px solid #006400;
-}
-
-.skill-list {
-    list-style: none;
-    padding: 15px;
+    color: #4C23CD;
     margin: 0;
 }
 
-.skill-list li {
-    padding: 8px 0;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 1em;
-    border-bottom: 1px dashed #98FB98; /* Pale Green */
+.skill-level {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #4C23CD;
+    color: #FFFFFF;
+    padding: 4px 8px;
+    border-radius: 2px;
+    font-size: 0.7em;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+    pointer-events: none;
+    z-index: 10;
 }
 
-.skill-list li:last-child {
-    border-bottom: none;
-}
-
-.skill-list li::before {
-    content: '>';
-    color: #2E8B57;
-    font-weight: bold;
+.skill-icon-item:hover .skill-level {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(-5px);
 }
 
 /* ======================================= */
 /* 6. Portfolio Section Styles             */
 /* ======================================= */
-
 .portfolio-section {
-    width: calc(100% - 40px);
-    max-width: 960px;
-    margin: 25px auto;
+    width: calc(100vw - 72px);
+    max-width: 900px;
+    margin: 20px auto;
 }
 
 .portfolio-content {
-    background-color: #F0F8FF; /* Alice Blue */
+    background-color: #d6e4f0;
+    padding: 30px;
 }
 
+/* --- FIX: Using Flexbox for centering items --- */
 .portfolio-grid {
-    display: grid;
-    /* Membuat kolom yang fleksibel, minimal 350px */
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* This will center the items */
     gap: 30px;
 }
 
-.portfolio-item {
-    border: 2px solid #1E90FF; /* Dodger Blue */
-    background-color: #FFFFFF;
-    box-shadow: 2px 2px 0 0 #808080, 4px 4px 0 0 #B0C4DE;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    display: flex; /* Menggunakan flex untuk tata letak internal */
-    flex-direction: column;
-}
-
-.portfolio-item:hover {
-    transform: translate(-4px, -4px);
-    box-shadow: 6px 6px 0 0 #808080, 8px 8px 0 0 #B0C4DE;
-}
-
-.portfolio-image-container {
-    position: relative;
-    border-bottom: 2px solid #1E90FF;
-    overflow: hidden;
-    height: 200px; /* Memberi tinggi tetap pada gambar container */
-}
-
-.portfolio-image {
+.project-card {
     display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Memastikan gambar mengisi area tanpa distorsi */
-    transition: transform 0.3s ease;
-}
-
-.portfolio-item:hover .portfolio-image {
-    transform: scale(1.05);
-}
-
-.portfolio-info {
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1; /* Membuat area ini mengisi sisa ruang */
-}
-
-.portfolio-info h3 {
-    font-size: 1.3em;
-    margin-bottom: 10px;
-    color: #000080; /* Navy */
-}
-
-.portfolio-description {
-    font-size: 0.9em;
-    margin-bottom: 15px;
-    line-height: 1.6;
-    flex-grow: 1; /* Mendorong tombol ke bawah */
-}
-
-.portfolio-tags {
-    margin-bottom: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-}
-
-.portfolio-tags span {
-    font-size: 0.75em;
-    background-color: #B0E0E6; /* Powder Blue */
-    color: #1E90FF;
-    padding: 3px 8px;
-    border: 1px solid #1E90FF;
-}
-
-.portfolio-links {
-    display: flex;
-    gap: 10px;
-}
-
-.portfolio-links a {
     text-decoration: none;
-    padding: 8px 15px;
-    border: 2px solid;
-    border-color: #FFFFFF #808080 #808080 #FFFFFF;
-    background-color: #ADD8E6; /* Light Blue */
-    box-shadow: 2px 2px 0 0 rgba(0,0,0,0.2);
-    transition: all 0.1s ease;
+    background-color: #F0D1F1;
+    border: 2px solid #4C23CD;
+    box-shadow: 2px 2px 0px 0px #808080;
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+    width: calc(50% - 15px); /* For 2 columns, half the gap */
+    min-width: 300px; /* Minimum width before wrapping */
 }
 
-.portfolio-links a:active {
-    border-color: #808080 #FFFFFF #FFFFFF #808080;
-    transform: translate(2px, 2px);
-    box-shadow: none;
+.project-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 4px 6px 0px 0px #808080;
+}
+
+.project-title-bar {
+    background-color: #EEB1E8;
+    color: #4C23CD;
+    padding: 2px 6px;
+    font-size: 0.7em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #4C23CD;
+}
+
+.project-title-bar .project-controls {
+    display: flex;
+    gap: 3px;
+}
+
+.project-title-bar .project-controls button {
+    width: 12px;
+    height: 12px;
+    background-color: #F0D1F1;
+    border: 1px solid #4C23CD;
+    border-right-color: #FFFFFF;
+    border-bottom-color: #FFFFFF;
+    font-size: 5px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.project-content-area {
+    background-color: #FFF8FF;
+    border: 2px solid #FFFFFF;
+    margin: 4px;
+    min-height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.project-content-area h2 {
+    color: #4C23CD;
+    font-size: 1.5em;
+    text-align: center;
+    padding: 10px;
 }
 
 /* ======================================= */
-/* 7. Contact Section & Form Styles        */
+/* 7. Contact Section Styles               */
 /* ======================================= */
-
 .contact-section {
-    width: calc(100% - 40px);
-    max-width: 960px;
-    margin: 25px auto;
+    width: calc(100vw - 72px);
+    max-width: 900px;
+    margin: 20px auto;
 }
 
 .contact-content {
-    background-color: #FFFFF0; /* Ivory */
+    background-color: #d6e4f0;
+    padding: 30px;
 }
 
 .contact-grid-container {
     display: grid;
-    grid-template-columns: 1fr 1.2fr; /* Kolom kanan sedikit lebih lebar */
+    grid-template-columns: 1fr 1fr;
     gap: 30px;
-    align-items: start; /* Konten dimulai dari atas */
 }
 
-.contact-info p {
-    line-height: 1.8;
-}
-
-.contact-info strong {
-    color: #DAA520; /* Goldenrod */
-    text-transform: uppercase;
-}
-
-.contact-socials {
-    margin-top: 20px;
+.contact-left-column {
     display: flex;
-    gap: 15px;
-    align-items: center;
+    flex-direction: column;
+    gap: 30px;
 }
 
-.contact-socials a {
-    font-size: 1.5em;
-    color: #CD853F; /* Peru */
-    transition: transform 0.2s ease;
-}
-
-.contact-socials a:hover {
-    color: #DAA520;
-    transform: scale(1.2);
-}
-
-.contact-form .form-group {
-    margin-bottom: 20px;
-}
-
-.contact-form label {
-    display: block;
-    margin-bottom: 8px;
-    font-size: 0.9em;
-    text-transform: uppercase;
-}
-
-.contact-form .form-control {
-    width: 100%;
-    padding: 12px;
-    background-color: #FFFFFF;
+.contact-sub-window {
     border: 2px solid #4C23CD;
-    font-size: 1em;
-    box-shadow: inset 2px 2px 0 0 rgba(0,0,0,0.15);
-    transition: box-shadow 0.2s ease, background-color 0.2s ease;
-}
-
-.contact-form .form-control:focus {
-    background-color: #F8EBFF;
-    box-shadow: none;
-    outline: 2px solid #9370DB;
-}
-
-.contact-form textarea.form-control {
-    min-height: 120px;
-    resize: vertical;
-}
-
-.submit-btn {
-    width: 100%;
-    padding: 15px;
-    font-size: 1.2em;
-    text-transform: uppercase;
-    background-color: #9370DB; /* Medium Purple */
-    color: #FFFFFF;
-    border: 2px solid;
-    border-color: #FFFFFF #4B0082 #4B0082 #FFFFFF; /* Indigo */
-    box-shadow: 2px 2px 0 0 rgba(0,0,0,0.3);
-}
-
-.submit-btn:hover {
-    background-color: #8A2BE2; /* Blue Violet */
-}
-
-.submit-btn:active {
-    border-color: #4B0082 #FFFFFF #FFFFFF #4B0082;
-    transform: translate(2px, 2px);
-    box-shadow: none;
-}
-
-/* ======================================= */
-/* 9. Footer Styles                        */
-/* ======================================= */
-
-.main-footer {
-    width: calc(100% - 40px);
-    max-width: 960px;
-    margin: 40px auto 0 auto;
-    padding: 15px 20px;
-    text-align: center;
-    font-size: 0.8em;
     background-color: #F0D1F1;
-    border: 2px solid #4C23CD;
-    border-top-width: 4px;
-    color: #800080;
+    width: 100%;
 }
 
-.main-footer p {
-    margin: 0;
+.chat-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
-
-.main-footer a {
-    color: #4C23CD;
-    text-decoration: underline;
+.chat-bubble {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+    background-color: #EEB1E8;
+    border-radius: 8px;
+    max-width: 85%;
+    font-size: 0.8em;
 }
-
-.main-footer a:hover {
+.chat-bubble.received {
+    align-self: flex-start;
+    border-bottom-left-radius: 0;
+}
+.chat-bubble.sent {
+    background-color: #4C23CD;
     color: #FFFFFF;
-    background: #4C23CD;
-    text-decoration: none;
+    align-self: flex-end;
+    border-bottom-right-radius: 0;
+}
+.chat-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+.chat-bubble.sent .chat-avatar {
+    order: 2;
+}
+
+.others-content {
+    text-align: center;
+}
+.others-content p {
+    margin: 0 0 10px 0;
+}
+.social-links-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+.social-links-container img {
+    width: 32px;
+    height: 32px;
+    image-rendering: pixelated;
+    transition: transform 0.2s;
+}
+.social-links-container a {
+    display: inline-block;
+}
+.social-links-container a:hover img {
+    transform: scale(1.1);
+}
+
+.email-form-window {
+    height: 100%;
+}
+.email-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+}
+.form-icon {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 10px auto;
+    image-rendering: pixelated;
+}
+.email-form label {
+    text-align: left;
+    font-size: 0.8em;
+}
+.retro-input {
+    width: 100%;
+    padding: 8px;
+    border: 2px solid #4C23CD;
+    background-color: #FFFFFF;
+    box-shadow: inset 2px 2px 0px 0px #c0c0c0;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.7em;
+    color: #4C23CD;
+}
+.retro-input::placeholder {
+    color: #aaa;
+}
+.send-button {
+    padding: 8px 16px;
+    background-color: #EEB1E8;
+    color: #4C23CD;
+    border: 2px solid #4C23CD;
+    border-top-color: #FFFFFF;
+    border-left-color: #FFFFFF;
+    cursor: pointer;
+    font-weight: bold;
+    align-self: center;
+    margin-top: 10px;
+}
+.send-button:active {
+    background-color: #ce9ac8;
+    border-color: #4C23CD;
+    border-top-color: #808080;
+    border-left-color: #808080;
+}
+
+/* ======================================= */
+/* 8. Loading Screen Styles                */
+/* ======================================= */
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000000;
+    color: #00FF00;
+    font-family: 'Press Start 2P', cursive;
+    z-index: 9999;
+    padding: 20px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 1s ease-out, visibility 1s ease-out;
+}
+
+#loading-screen.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+#boot-text {
+    margin: 0;
+    white-space: pre-wrap;
+    font-size: 1em;
+}
+
+#boot-text::after {
+    content: '█';
+    animation: blink 1s step-end infinite;
+}
+
+/* ======================================= */
+/* 9. Taskbar Styles                       */
+/* ======================================= */
+.taskbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 30px;
+    background-color: #e3c3e4;
+    border-top: 2px solid #FFFFFF;
+    box-shadow: 0px -2px 0px 0px #4C23CD;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 8px;
+    z-index: 1001;
+}
+
+.start-button {
+    background-color: #F0D1F1;
+    border: 2px solid #000000;
+    border-top-color: #FFFFFF;
+    border-left-color: #FFFFFF;
+    padding: 2px 10px;
+    cursor: pointer;
+    font-size: 0.8em;
+    color: #4C23CD;
+    flex-shrink: 0;
+    font-weight: bold;
+    transition: background-color 0.1s ease-out, border 0.1s ease-out;
+}
+
+.start-button:active {
+    border-color: #FFFFFF;
+    border-right-color: #000000;
+    border-bottom-color: #000000;
+    background-color: #808080;
+}
+
+.footer {
+    font-size: 12px;
+}
+
+.taskbar-time {
+    background-color: #F0D1F1;
+    border: 2px solid #808080;
+    border-top-color: #FFFFFF;
+    border-left-color: #FFFFFF;
+    padding: 2px 8px;
+    font-size: 0.8em;
+    color: #4C23CD;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* ======================================= */
 /* 10. Responsive Styles & Animations      */
 /* ======================================= */
 
-@keyframes target-focus-effect {
-  0% { transform: scale(1); box-shadow: 4px 4px 0px 0px rgba(0,0,0,0.2); }
-  50% { transform: scale(1.02); box-shadow: 6px 6px 10px 0px rgba(76,35,205,0.4); }
-  100% { transform: scale(1); box-shadow: 4px 4px 0px 0px rgba(0,0,0,0.2); }
-}
-
-@keyframes progress-bar-stripes {
-  from { background-position: 20px 0; }
-  to { background-position: 0 0; }
-}
-
-/* --- PERBAIKAN UNTUK TABLET --- */
-/* Aturan ini akan aktif untuk layar dengan lebar 1023px ke bawah */
-@media (max-width: 1023px) {
-    body {
-        font-size: 13px;
-        padding-bottom: 20px;
-    }
-
-    .about-section,
-    .skills-section,
-    .portfolio-section,
-    .contact-section,
-    .main-header,
-    .main-footer {
-        width: 95%;
-        max-width: none;
-    }
-    
-    .main-header {
-        top: 10px;
-    }
-
-    .about-section,
-    .skills-section,
-    .portfolio-section,
-    .contact-section {
-        scroll-margin-top: 290px;
-    }
-    
-    .about-section {
-        margin-top: 120px; /* Adjust for header height */
-    }
-
-    .main-header nav {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 5px;
-        padding: 8px;
-    }
-    .main-header nav a {
-        font-size: 0.9em;
-    }
-
-    .main-header .progress-bars-section {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-    }
+/* For Tablets (min-width: 768px) */
+@media (min-width: 768px) {
     .progress-item {
-        width: 100%;
         margin-bottom: 0;
     }
-    .progress-bar-container {
-        max-width: none;
-    }
-
     .portfolio-grid {
-        grid-template-columns: 1fr;
-        gap: 25px;
+        /* On tablets, let them stack */
+        flex-direction: column;
+        align-items: center;
     }
-
+    .project-card {
+        width: 80%; /* Take up more width on tablet */
+    }
     .contact-grid-container {
         grid-template-columns: 1fr;
-        gap: 40px;
     }
 }
 
-/* --- PERBAIKAN UNTUK MOBILE --- */
-/* Aturan ini akan aktif untuk layar dengan lebar 600px ke bawah */
-@media (max-width: 600px) {
-    body {
-        font-size: 12px;
+/* For Desktops (min-width: 1024px) */
+@media (min-width: 1024px) {
+    .portfolio-grid {
+        flex-direction: row; /* Back to row for desktop */
     }
-
-    .window-title-bar {
-        padding: 5px 8px;
+    .project-card {
+        width: calc(50% - 15px); /* Back to 2 columns */
     }
-    .window-title-bar span {
-        font-size: 0.9em;
-    }
-
-    .window-content-inner {
-        padding: 15px;
-    }
-
-    .main-header {
-        position: absolute; /* Change to absolute to prevent layout issues on mobile */
-    }
-    
-    .about-section {
-        margin-top: 20px; /* No need for huge margin if header is absolute */
-    }
-
-    .about-section,
-    .skills-section,
-    .portfolio-section,
-    .contact-section {
-        scroll-margin-top: 20px; /* Adjust for absolute header */
-    }
-
-    .about-header {
-        flex-direction: column;
-        text-align: center;
-        gap: 15px;
-    }
-    .about-header .profile-pic {
-        width: 96px;
-        height: 96px;
-    }
-    .about-header h1 {
-        font-size: 1.8em;
-    }
-    .about-header h2 {
-        font-size: 1.1em;
-    }
-
-    .skills-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .portfolio-info {
-        padding: 15px;
+    .contact-grid-container {
+        grid-template-columns: 1fr 1fr;
     }
 }
 
-/* ======================================= */
-/* 11. Utility & Accessibility             */
-/* ======================================= */
+@keyframes target-focus-effect {
+    0% {
+        transform: translate(0, 0);
+        box-shadow: 2px 2px 0px 0px #808080;
+    }
+    20% {
+        transform: translate(-3px, 2px);
+        box-shadow: 2px 2px 0px 0px #808080;
+    }
+    40% {
+        transform: translate(2px, -3px) scale(1.01);
+        box-shadow: 8px 8px 0px #FF00FF, -8px -8px 0px #00FFFF;
+    }
+    60% {
+        transform: translate(-2px, 3px) scale(1);
+        box-shadow: 8px -8px 0px #FFFF00, -8px 8px 0px #00FF00;
+    }
+    80% {
+        transform: translate(0, 0);
+        box-shadow: 2px 2px 0px 0px #808080;
+    }
+    100% {
+        transform: translate(0, 0);
+        box-shadow: 2px 2px 0px 0px #808080;
+    }
+}
 
-.sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
+@keyframes blink {
+    from, to { color: transparent; }
+    50% { color: #00FF00; }
+}
+
+/* Custom Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 12px;
+}
+::-webkit-scrollbar-track {
+    background: #F0D1F1;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #eb49c0;
+    border: 2px solid #F0D1F1;
+    border-radius: 6px;
 }
