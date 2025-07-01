@@ -158,10 +158,10 @@ document.addEventListener('DOMContentLoaded', function() {
             sendButton.textContent = 'SENDING...';
             sendButton.disabled = true;
 
-            // (UBAH) Menggunakan EmailJS
-            // Ganti dengan Service ID, Template ID, dan Public Key Anda dari EmailJS
-            const serviceID = 'service_wy2stqb';
-            const templateID = 'xnKSx6VUvmwHuGR5C';
+            // (UBAH) Menggunakan EmailJS dengan ID Anda
+            const serviceID = 'service_kmqa3uq';
+            // (PENTING) Ganti ini dengan Template ID Anda dari dasbor EmailJS
+            const templateID = 'template_g6xhi9h';
 
             emailjs.sendForm(serviceID, templateID, this)
                 .then(() => {
