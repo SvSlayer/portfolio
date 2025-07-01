@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const navLinks = document.querySelectorAll('header nav a');
     const taskbarContainer = document.getElementById('minimized-windows-container');
     const interactiveWindows = document.querySelectorAll('.about-section, .skills-section, .portfolio-section, .contact-section');
-    const desktopIcons = document.querySelectorAll('.desktop-icon');
+    const desktopIcons = document.querySelectorAll('.desktop-icon'); // (BARU) Mengambil semua ikon desktop
     let highestZIndex = 10;
 
     // --- FUNGSI UNTUK MEMBUAT JENDELA BISA DIGESER (DRAGGABLE) ---
@@ -48,9 +48,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // --- INISIALISASI POSISI & FUNGSI JENDELA ---
     interactiveWindows.forEach((windowEl, index) => {
-        // Posisi awal jendela agar tidak tumpang tindih dengan ikon desktop atau header
-        windowEl.style.top = `${250 + index * 20}px`;
-        windowEl.style.left = `${window.innerWidth / 2 - windowEl.offsetWidth / 2 + index * 20}px`;
+        windowEl.style.top = `${180 + index * 40}px`;
+        windowEl.style.left = `${50 + index * 40}px`;
         windowEl.style.zIndex = highestZIndex + index + 1;
         makeWindowDraggable(windowEl);
 
@@ -87,7 +86,6 @@ document.addEventListener('DOMContentLoaded', function() {
     function showWindow(selector) {
         const windowEl = document.querySelector(selector);
         if (windowEl) {
-
             windowEl.classList.remove('hidden');
             highestZIndex++;
             windowEl.style.zIndex = highestZIndex;
@@ -110,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Menambahkan event listener untuk setiap ikon di desktop
+    // (BARU) Menambahkan event listener untuk setiap ikon di desktop
     desktopIcons.forEach(icon => {
         icon.addEventListener('click', () => {
             const targetSelector = icon.dataset.target;
@@ -131,10 +129,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // ========================================================
     const loadingScreen = document.getElementById('loading-screen');
     const bootTextElement = document.getElementById('boot-text');
-    const bootSequence = ['> BOOTING PROGRAM...', '> Initializing memory... OK', '> Loading UI assets... DONE', '> Establishing network connection... SECURE', '> Preparing portfolio... WELCOME, USER.'];
-    let lineIndex = 0;
-    let charIndex = 0;
-
+    const bootSequence = ['> BOOTING PROGRAM...','> Initializing memory... OK','> Loading UI assets... DONE','> Establishing network connection... SECURE','> Preparing portfolio... WELCOME, USER.'];
+    let lineIndex = 0; let charIndex = 0;
     function typeBootText() {
         if (loadingScreen && bootTextElement) {
             if (lineIndex < bootSequence.length) {
@@ -144,19 +140,15 @@ document.addEventListener('DOMContentLoaded', function() {
                     setTimeout(typeBootText, 30);
                 } else {
                     bootTextElement.innerHTML += '\n';
-                    lineIndex++;
-                    charIndex = 0;
+                    lineIndex++; charIndex = 0;
                     setTimeout(typeBootText, 250);
                 }
             } else {
-                setTimeout(() => {
-                    loadingScreen.classList.add('hidden');
-                }, 700);
+                setTimeout(() => { loadingScreen.classList.add('hidden'); }, 700);
             }
         }
     }
     typeBootText();
-
     const contactForm = document.getElementById('contact-form');
     if (contactForm) {
         const sendButton = contactForm.querySelector('.send-button');
@@ -166,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const originalButtonText = sendButton.textContent;
             sendButton.textContent = 'SENDING...';
             sendButton.disabled = true;
-            fetch(import.meta.env.VITE_FORMSPREE_URL, { // Pastikan VITE_FORMSPREE_URL sudah dikonfigurasi
+            fetch(import.meta.env.VITE_FORMSPREE_URL, {
                 method: 'POST',
                 body: JSON.stringify(Object.fromEntries(formData)),
                 headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
@@ -195,7 +187,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
-
     const allBars = document.querySelectorAll('.energy-bar, .creativity-bar, .brain-bar');
     function animateProgressBars() {
         allBars.forEach(bar => {
@@ -207,7 +198,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     setInterval(animateProgressBars, Math.random() * 1000 + 2000);
     animateProgressBars();
-
     const clockElement = document.getElementById('taskbar-clock');
     function updateClock() {
         if (clockElement) {
@@ -218,5 +208,4 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     setInterval(updateClock, 1000);
     updateClock();
-
 });
