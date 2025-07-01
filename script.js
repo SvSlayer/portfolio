@@ -163,6 +163,13 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
 
             // Validasi reCAPTCHA di frontend
+            // Pastikan grecaptcha global object sudah tersedia
+            if (typeof grecaptcha === 'undefined') {
+                alert("reCAPTCHA is not loaded. Please try again or check your internet connection.");
+                console.error("reCAPTCHA object (grecaptcha) is undefined.");
+                return;
+            }
+
             const recaptchaResponse = grecaptcha.getResponse(); // Mendapatkan token reCAPTCHA
             if (recaptchaResponse.length === 0) {
                 alert("Please complete the reCAPTCHA to send your message.");
@@ -177,8 +184,10 @@ document.addEventListener('DOMContentLoaded', function() {
             sendButton.disabled = true;
 
             try {
-                // MASALAHNYA ADA DI SINI ATAU DI CONFIGURASI VERCEL/FORMSPREE
-                const response = await fetch(import.meta.env.VITE_FORMSPREE_URL, {
+                // GANTI INI DENGAN URL FORMSPREE ANDA YANG SEBENARNYA!
+                const FORMSPREE_URL = "https://formspree.io/f/mgvydonj"; 
+                
+                const response = await fetch(FORMSPREE_URL, {
                     method: 'POST',
                     body: formData,
                     headers: { 'Accept': 'application/json' }
@@ -189,18 +198,19 @@ document.addEventListener('DOMContentLoaded', function() {
                     contactForm.reset();
                     grecaptcha.reset(); // Reset reCAPTCHA setelah submit berhasil
                 } else {
-                    const data = await response.json();
-                    if (Object.hasOwn(data, 'errors')) {
-                        alert(data["errors"].map(error => error["message"]).join(", "));
+                    // Coba baca respons JSON dari Formspree untuk error yang lebih spesifik
+                    const errorData = await response.json();
+                    if (errorData && Object.hasOwn(errorData, 'errors')) {
+                        const errorMessages = errorData.errors.map(error => error.message).join(", ");
+                        alert(`Oops! There was a problem submitting your form: ${errorMessages}`);
                     } else {
-                        // Ini adalah jalur yang akan dipicu oleh "Domain tidak valid" dari reCAPTCHA server-side
-                        alert('Oops! There was a problem submitting your form. Please check your reCAPTCHA configuration.');
+                        alert('Oops! There was a problem submitting your form. Please check your reCAPTCHA configuration and Formspree settings.');
                     }
                     sendButton.textContent = 'ERROR :(';
                 }
             } catch (error) {
-                alert('Oops! There was a problem with the network or server connection.');
-                console.error('Fetch error:', error);
+                alert('Oops! There was a problem with the network or server connection. Please try again.');
+                console.error('Fetch error:', error); // Log error ke console
                 sendButton.textContent = 'ERROR :(';
             } finally {
                 setTimeout(() => {
