@@ -87,6 +87,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function showWindow(selector) {
         const windowEl = document.querySelector(selector);
         if (windowEl) {
+
             windowEl.classList.remove('hidden');
             highestZIndex++;
             windowEl.style.zIndex = highestZIndex;
@@ -159,60 +160,39 @@ document.addEventListener('DOMContentLoaded', function() {
     const contactForm = document.getElementById('contact-form');
     if (contactForm) {
         const sendButton = contactForm.querySelector('.send-button');
-        contactForm.addEventListener('submit', async function(e) {
+        contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
-
-            // TIDAK PERLU VALIDASI reCAPTCHA di frontend lagi, Formspree akan menanganinya
-            // TIDAK PERLU menambahkan g-recaptcha-response ke FormData
-
             const formData = new FormData(contactForm);
             const originalButtonText = sendButton.textContent;
             sendButton.textContent = 'SENDING...';
             sendButton.disabled = true;
-
-            try {
-                // Menggunakan Environment Variable untuk URL Formspree
-                // PASTIKAN VITE_FORMSPREE_URL diatur di pengaturan Environment Variables Vercel Anda!
-                const FORMSPREE_URL = import.meta.env.VITE_FORMSPREE_URL; 
-
-                // Periksa apakah URL terdefinisi. Jika tidak, itu masalah konfigurasi ENV Var di Vercel.
-                if (!FORMSPREE_URL) {
-                    throw new Error("Formspree URL environment variable is not configured correctly in Vercel.");
-                }
-                
-                const response = await fetch(FORMSPREE_URL, {
-                    method: 'POST',
-                    body: formData,
-                    headers: { 'Accept': 'application/json' }
-                });
-
+            fetch(import.meta.env.VITE_FORMSPREE_URL, { // Pastikan VITE_FORMSPREE_URL sudah dikonfigurasi
+                method: 'POST',
+                body: JSON.stringify(Object.fromEntries(formData)),
+                headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
+            }).then(response => {
                 if (response.ok) {
                     sendButton.textContent = 'SENT! :D';
                     contactForm.reset();
-                    // TIDAK PERLU grecaptcha.reset() karena Formspree yang menangani CAPTCHA
                 } else {
-                    // Coba baca respons JSON dari Formspree untuk error yang lebih spesifik
-                    const errorData = await response.json();
-                    if (errorData && Object.hasOwn(errorData, 'errors')) {
-                        const errorMessages = errorData.errors.map(error => error.message).join(", ");
-                        alert(`Oops! There was a problem submitting your form: ${errorMessages}. Please check your Formspree settings.`);
-                    } else {
-                        // Pesan lebih umum jika Formspree tidak memberikan error spesifik
-                        alert('Oops! There was a problem submitting your form. Formspree might be blocking it (e.g., spam protection).');
-                    }
+                    response.json().then(data => {
+                        if (Object.hasOwn(data, 'errors')) {
+                            alert(data["errors"].map(error => error["message"]).join(", "));
+                        } else {
+                            alert('Oops! There was a problem submitting your form');
+                        }
+                    });
                     sendButton.textContent = 'ERROR :(';
                 }
-            } catch (error) {
-                // Catch untuk error jaringan, atau jika FORMSPREE_URL tidak terdefinisi
-                alert('Oops! There was a problem with the network, server connection, or configuration. Please try again.');
-                console.error('Fetch error or config error:', error); // Log error ke console
+            }).catch(error => {
+                alert('Oops! There was a problem with the network.');
                 sendButton.textContent = 'ERROR :(';
-            } finally {
+            }).finally(() => {
                 setTimeout(() => {
                     sendButton.textContent = originalButtonText;
                     sendButton.disabled = false;
                 }, 3000);
-            }
+            });
         });
     }
 
