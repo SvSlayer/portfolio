@@ -13,7 +13,14 @@ html {
 body {
     margin: 0;
     padding: 0;
-    background-color: #F8EBFF;
+    background-color: #2c003e; /* (UBAH) Warna dasar lebih gelap untuk kontras bintang */
+    background-image: radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+                      radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
+                      radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px),
+                      radial-gradient(rgba(255,255,255,.4), rgba(255,255,255,.1) 2px, transparent 30px);
+    background-size: 550px 550px, 350px 350px, 250px 250px, 150px 150px;
+    background-position: 0 0, 40px 60px, 130px 270px, 70px 100px;
+    animation: stars-move 120s linear infinite; /* (TAMBAH) Animasi bintang bergerak */
     font-family: 'Press Start 2P', cursive;
     color: #4C23CD;
     font-size: 14px;
@@ -195,11 +202,15 @@ button, a {
 
 #desktop-container {
     position: absolute;
-    top: 180px; /* (UBAH) Posisi di bawah header */
-    left: 20px;
+    top: 150px; /* (UBAH) Posisi di bawah header */
+    left: 50%; /* (UBAH) Pusatkan secara horizontal */
+    transform: translateX(-50%); /* (UBAH) Pusatkan secara horizontal */
     display: flex;
-    flex-direction: column;
-    gap: 20px;
+    flex-direction: row; /* (UBAH) Tata letak horizontal */
+    gap: 30px; /* (UBAH) Jarak antar ikon */
+    width: auto;
+    max-width: 900px;
+    padding: 20px;
 }
 
 .desktop-icon {
@@ -215,20 +226,21 @@ button, a {
     width: 64px;
     height: 64px;
     margin-bottom: 8px;
-    filter: drop-shadow(2px 2px 0px rgba(0,0,0,0.2));
+    filter: drop-shadow(3px 3px 0px rgba(0,0,0,0.3));
     transition: transform 0.2s ease;
+    stroke: #FFFFFF; /* (UBAH) Warna ikon menjadi putih agar kontras */
 }
 
 .desktop-icon:hover svg {
-    transform: scale(1.1);
+    transform: scale(1.1) translateY(-5px);
 }
 
 .desktop-icon p {
     margin: 0;
     padding: 2px 4px;
-    color: #4C23CD;
+    color: #FFFFFF; /* (UBAH) Warna teks menjadi putih */
     font-size: 0.8em;
-    /* (HAPUS) Menghilangkan highlight */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
 }
 
 .progress-item {
@@ -788,6 +800,12 @@ button, a {
 /* ======================================= */
 /* 11. Responsive Styles & Animations      */
 /* ======================================= */
+
+/* (TAMBAH) Keyframes untuk animasi bintang */
+@keyframes stars-move {
+    from {background-position:0 0;}
+    to {background-position:-10000px 5000px;}
+}
 
 /* For Tablets (min-width: 768px) */
 @media (min-width: 768px) {
