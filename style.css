@@ -13,7 +13,7 @@ html {
 body {
     margin: 0;
     padding: 0;
-    background-color: #F8EBFF; /* (KEMBALIKAN) Latar belakang kembali ke warna solid */
+    background-color: #F8EBFF; /* Kembali ke warna latar asli yang lebih terang */
     font-family: 'Press Start 2P', cursive;
     color: #4C23CD;
     font-size: 14px;
@@ -23,8 +23,33 @@ body {
     -moz-osx-font-smoothing: grayscale;
     image-rendering: pixelated;
     overflow: hidden;
-    position: relative;
+    position: relative; /* Diperlukan untuk elemen dekoratif */
 }
+
+/* (DIKEMBALIKAN) Dekorasi pilar di sisi kiri dan kanan */
+body::before,
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 200px; /* Lebar pilar dekoratif */
+    background-image: linear-gradient(to bottom, #EEB1E8, #4C23CD, #2c003e); /* Dikembalikan ke gradient */
+    z-index: -1;
+}
+
+body::before {
+    left: 0;
+}
+
+body::after {
+    right: 0;
+}
+
+/* (DIHAPUS) Gaya untuk teks berjatuhan - Tidak lagi diperlukan */
+/* .falling-text { ... } */
+/* @keyframes fall { ... } */
+
 
 button, a {
     -webkit-tap-highlight-color: transparent;
@@ -126,7 +151,7 @@ button, a {
 }
 
 /* ======================================= */
-/* 3. Header & Desktop Icons               */
+/* 3. Header & Desktop Icons (UPDATED)     */
 /* ======================================= */
 .main-header {
     width: calc(100vw - 52px);
@@ -194,14 +219,21 @@ button, a {
     font-size: 0.8em;
 }
 
-/* (KEMBALIKAN) Mengembalikan posisi ikon desktop ke kiri */
+/* (UBAH) Penyesuaian posisi ikon desktop */
 #desktop-container {
-    position: absolute;
-    top: 180px;
-    left: 20px;
+    position: absolute; /* Kembali ke absolute */
+    top: 180px; /* Posisi relatif terhadap body, di bawah header */
+    left: 50%; /* Tengah */
+    transform: translateX(-50%); /* Penyesuaian agar benar-benar di tengah */
+    width: calc(100vw - 72px); /* Mengikuti lebar main-header */
+    max-width: 900px; /* Mengikuti max-width main-header */
+    margin: 0 auto; /* Untuk centering dengan width */
+    padding-left: 20px; /* Menyesuaikan agar ikon lebih ke kiri */
     display: flex;
-    flex-direction: column;
-    gap: 20px;
+    flex-direction: column; /* Tata letak vertikal */
+    gap: 20px; /* Jarak antar ikon */
+    align-items: flex-start; /* Sejajarkan ke kiri dalam container */
+    z-index: 5; /* Agar berada di atas pilar tapi di bawah jendela utama */
 }
 
 .desktop-icon {
@@ -217,13 +249,13 @@ button, a {
     width: 64px;
     height: 64px;
     margin-bottom: 8px;
-    filter: drop-shadow(2px 2px 0px rgba(0,0,0,0.2));
+    filter: drop-shadow(3px 3px 0px rgba(0,0,0,0.3));
     transition: transform 0.2s ease;
-    stroke: #4C23CD; /* Warna ikon kembali agar terlihat */
+    stroke: #4C23CD;
 }
 
 .desktop-icon:hover svg {
-    transform: scale(1.1);
+    transform: scale(1.1) translateY(-5px);
 }
 
 .desktop-icon p {
@@ -231,6 +263,7 @@ button, a {
     padding: 2px 4px;
     color: #4C23CD;
     font-size: 0.8em;
+    text-shadow: none;
 }
 
 .progress-item {
@@ -410,7 +443,7 @@ button, a {
 }
 
 /* ======================================= */
-/* 6. Portfolio Section Styles (UPDATED)   */
+/* 6. Portfolio Section Styles             */
 /* ======================================= */
 .portfolio-content {
     background-color: #d6e4f0;
@@ -424,14 +457,6 @@ button, a {
     gap: 30px;
 }
 
-/* Wrapper untuk kartu proyek dan deskripsinya */
-.project-card-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px; /* Jarak antara kartu dan deskripsi */
-}
-
 .project-card {
     display: block;
     text-decoration: none;
@@ -439,8 +464,7 @@ button, a {
     border: 2px solid #4C23CD;
     box-shadow: 2px 2px 0px 0px #808080;
     transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
-    width: 100%;
-    max-width: 400px;
+    width: calc(50% - 15px);
     min-width: 300px;
 }
 
@@ -479,49 +503,22 @@ button, a {
     justify-content: center;
 }
 
-/* Menyesuaikan area konten untuk gambar */
 .project-content-area {
-    padding: 0;
-    border: none;
-    overflow: hidden;
-    min-height: 200px;
     background-color: #FFF8FF;
+    border: 2px solid #FFFFFF;
+    margin: 4px;
+    min-height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.project-content-area img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-
-/* Gaya untuk kotak deskripsi */
-.project-description {
-    background-color: #EEB1E8;
-    border: 2px solid #4C23CD;
-    padding: 8px;
-    width: 80%;
-    max-width: 400px;
-    text-align: center;
-    font-size: 0.8em;
-    box-shadow: 2px 2px 0px 0px #808080;
-    opacity: 0;
-    transform: translateY(10px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    pointer-events: none;
-}
-
-.project-description p {
-    margin: 0;
+.project-content-area h2 {
     color: #4C23CD;
+    font-size: 1.5em;
+    text-align: center;
+    padding: 10px;
 }
-
-/* Tampilkan deskripsi saat container di-hover */
-.project-card-container:hover .project-description {
-    opacity: 1;
-    transform: translateY(0);
-}
-
 
 /* ======================================= */
 /* 7. Contact Section Styles               */
@@ -699,7 +696,7 @@ button, a {
 }
 
 /* ======================================= */
-/* 9. Taskbar Styles                       */
+/* 9. Taskbar Styles (UPDATED)             */
 /* ======================================= */
 .taskbar {
     position: fixed;
@@ -712,7 +709,7 @@ button, a {
     box-shadow: 0px -2px 0px 0px #4C23CD;
     display: flex;
     align-items: center; 
-    padding: 0 4px;      
+    padding: 0 4px;       
     gap: 4px;
     z-index: 1001;
 }
@@ -760,7 +757,7 @@ button, a {
 }
 
 /* ======================================= */
-/* 10. Interactive Window & Taskbar Styles */
+/* 10. Interactive Window & Taskbar Styles (UPDATED) */
 /* ======================================= */
 .hidden {
     display: none !important;
@@ -778,10 +775,10 @@ button, a {
 #minimized-windows-container {
     display: flex;
     gap: 4px;
-    flex-grow: 1;      
+    flex-grow: 1;        
     flex-shrink: 1;    
-    min-width: 0;      
-    overflow: hidden;  
+    min-width: 0;        
+    overflow: hidden;    
 }
 
 .minimized-tab {
