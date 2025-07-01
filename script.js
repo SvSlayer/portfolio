@@ -158,11 +158,13 @@ document.addEventListener('DOMContentLoaded', function() {
             sendButton.textContent = 'SENDING...';
             sendButton.disabled = true;
 
-            // (PERBAIKAN) Ganti baris ini dengan URL Formspree Anda
+            // (PERBAIKAN) Menggunakan URL Formspree Anda secara langsung
             fetch("https://formspree.io/f/mgvydonj", {
                 method: 'POST',
-                body: JSON.stringify(Object.fromEntries(formData)),
-                headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
             }).then(response => {
                 if (response.ok) {
                     sendButton.textContent = 'SENT! :D';
