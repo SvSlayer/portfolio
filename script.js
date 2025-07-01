@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const navLinks = document.querySelectorAll('header nav a');
     const taskbarContainer = document.getElementById('minimized-windows-container');
     const interactiveWindows = document.querySelectorAll('.about-section, .skills-section, .portfolio-section, .contact-section');
-    const desktopIcons = document.querySelectorAll('.desktop-icon'); // (BARU) Mengambil semua ikon desktop
+    const desktopIcons = document.querySelectorAll('.desktop-icon');
     let highestZIndex = 10;
 
     // --- FUNGSI UNTUK MEMBUAT JENDELA BISA DIGESER (DRAGGABLE) ---
@@ -48,8 +48,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // --- INISIALISASI POSISI & FUNGSI JENDELA ---
     interactiveWindows.forEach((windowEl, index) => {
-        windowEl.style.top = `${180 + index * 40}px`;
-        windowEl.style.left = `${50 + index * 40}px`;
+        // Posisi awal jendela agar tidak tumpang tindih dengan ikon desktop atau header
+        windowEl.style.top = `${250 + index * 20}px`; // Sesuaikan nilai top agar tidak tumpang tindih
+        windowEl.style.left = `${window.innerWidth / 2 - windowEl.offsetWidth / 2 + index * 20}px`;
         windowEl.style.zIndex = highestZIndex + index + 1;
         makeWindowDraggable(windowEl);
 
@@ -86,6 +87,15 @@ document.addEventListener('DOMContentLoaded', function() {
     function showWindow(selector) {
         const windowEl = document.querySelector(selector);
         if (windowEl) {
+            // Sembunyikan semua jendela lain sebelum menampilkan yang baru
+            interactiveWindows.forEach(win => {
+                if (win !== windowEl) {
+                    win.classList.add('hidden');
+                    const existingTab = taskbarContainer.querySelector(`[data-target="#${win.id}"]`);
+                    if (existingTab) existingTab.remove();
+                }
+            });
+
             windowEl.classList.remove('hidden');
             highestZIndex++;
             windowEl.style.zIndex = highestZIndex;
@@ -108,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // (BARU) Menambahkan event listener untuk setiap ikon di desktop
+    // Menambahkan event listener untuk setiap ikon di desktop
     desktopIcons.forEach(icon => {
         icon.addEventListener('click', () => {
             const targetSelector = icon.dataset.target;
@@ -129,8 +139,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // ========================================================
     const loadingScreen = document.getElementById('loading-screen');
     const bootTextElement = document.getElementById('boot-text');
-    const bootSequence = ['> BOOTING PROGRAM...','> Initializing memory... OK','> Loading UI assets... DONE','> Establishing network connection... SECURE','> Preparing portfolio... WELCOME, USER.'];
-    let lineIndex = 0; let charIndex = 0;
+    const bootSequence = ['> BOOTING PROGRAM...', '> Initializing memory... OK', '> Loading UI assets... DONE', '> Establishing network connection... SECURE', '> Preparing portfolio... WELCOME, USER.'];
+    let lineIndex = 0;
+    let charIndex = 0;
+
     function typeBootText() {
         if (loadingScreen && bootTextElement) {
             if (lineIndex < bootSequence.length) {
@@ -140,15 +152,19 @@ document.addEventListener('DOMContentLoaded', function() {
                     setTimeout(typeBootText, 30);
                 } else {
                     bootTextElement.innerHTML += '\n';
-                    lineIndex++; charIndex = 0;
+                    lineIndex++;
+                    charIndex = 0;
                     setTimeout(typeBootText, 250);
                 }
             } else {
-                setTimeout(() => { loadingScreen.classList.add('hidden'); }, 700);
+                setTimeout(() => {
+                    loadingScreen.classList.add('hidden');
+                }, 700);
             }
         }
     }
     typeBootText();
+
     const contactForm = document.getElementById('contact-form');
     if (contactForm) {
         const sendButton = contactForm.querySelector('.send-button');
@@ -158,7 +174,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const originalButtonText = sendButton.textContent;
             sendButton.textContent = 'SENDING...';
             sendButton.disabled = true;
-            fetch(import.meta.env.VITE_FORMSPREE_URL, {
+            fetch(import.meta.env.VITE_FORMSPREE_URL, { // Pastikan VITE_FORMSPREE_URL sudah dikonfigurasi
                 method: 'POST',
                 body: JSON.stringify(Object.fromEntries(formData)),
                 headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
@@ -187,6 +203,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+
     const allBars = document.querySelectorAll('.energy-bar, .creativity-bar, .brain-bar');
     function animateProgressBars() {
         allBars.forEach(bar => {
@@ -198,6 +215,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     setInterval(animateProgressBars, Math.random() * 1000 + 2000);
     animateProgressBars();
+
     const clockElement = document.getElementById('taskbar-clock');
     function updateClock() {
         if (clockElement) {
@@ -208,4 +226,81 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     setInterval(updateClock, 1000);
     updateClock();
+
+    // ========================================================
+    // (BARU) LOGIKA TEKS BERJATUHAN "NEEDY STREAMER OVERLOAD"
+    // ========================================================
+    const leftPillar = document.querySelector('body::before');
+    const rightPillar = document.querySelector('body::after');
+    const fallingTextContent = [
+        "OMG KAWAII", "ANIME IS REAL", "DELETE SYSTEM32", "AMELIA IS QUEEN",
+        "PSYCHIC STREAMER", "INTERNET ANGEL", "NEEDY GIRL", "OVERLOAD",
+        "KANGAMELIA", "KAWAII-CHAN", "NEEDY", "INTERNET", "PSYCHIC",
+        "HELLO WORLD", "CODE IS LOVE", "BUG FREE", "STREAM ON", "P-CHAN",
+        "SUBSCRIBE", "LIKE", "SHARE", "DONATE", "FANART"
+    ];
+
+    function createFallingText(side) {
+        const text = fallingTextContent[Math.floor(Math.random() * fallingTextContent.length)];
+        const textElement = document.createElement('span');
+        textElement.classList.add('falling-text');
+        textElement.textContent = text;
+
+        const startPosition = Math.random() * (side === 'left' ? leftPillar.offsetWidth : rightPillar.offsetWidth);
+        
+        textElement.style.left = `${startPosition}px`; // Menggunakan `left` karena `body::before` dan `body::after` memiliki `left` dan `right` 0
+
+        // Menambahkan elemen ke dalam body, namun posisinya akan diatur oleh `position: absolute` relatif terhadap `body`
+        // dan `overflow: hidden` pada `body::before` dan `body::after` akan menyembunyikan yang di luar area
+        document.body.appendChild(textElement); 
+
+        // Set top secara acak agar jatuh dari titik yang berbeda
+        textElement.style.top = `${-Math.random() * 500}px`; // Mulai dari atas layar
+
+        // Hapus elemen setelah selesai animasi
+        textElement.addEventListener('animationend', () => {
+            textElement.remove();
+        });
+    }
+
+    // Memastikan elemen body::before dan body::after sudah dirender di DOM untuk mengetahui dimensinya
+    // Ini adalah trik, karena pseudo-elemen tidak bisa diakses langsung lewat JS.
+    // Kita akan menggunakan area `body` sebagai "wadah" dan memastikan teks jatuh di area yang diinginkan.
+    // CSS `body::before` dan `body::after` dengan `overflow: hidden` akan membantu.
+    
+    // Buat interval untuk menghasilkan teks berjatuhan di sisi kiri
+    setInterval(() => {
+        const textElement = document.createElement('span');
+        textElement.classList.add('falling-text');
+        textElement.textContent = fallingTextContent[Math.floor(Math.random() * fallingTextContent.length)];
+        
+        // Atur posisi X secara acak di dalam area kiri (sesuai lebar body::before)
+        // Perlu diingat, ini adalah posisi relatif terhadap viewport.
+        const leftPillarWidth = 200; // Sesuai dengan lebar yang Anda set di CSS
+        textElement.style.left = `${Math.random() * leftPillarWidth}px`;
+        textElement.style.animationDelay = `${Math.random() * 5}s`; // Variasikan delay
+        document.body.appendChild(textElement);
+    }, 500); // Setiap 0.5 detik
+
+    // Buat interval untuk menghasilkan teks berjatuhan di sisi kanan
+    setInterval(() => {
+        const textElement = document.createElement('span');
+        textElement.classList.add('falling-text');
+        textElement.textContent = fallingTextContent[Math.floor(Math.random() * fallingTextContent.length)];
+        
+        // Atur posisi X secara acak di dalam area kanan
+        const rightPillarWidth = 200; // Sesuai dengan lebar yang Anda set di CSS
+        // Hitung posisi dari kanan layar: window.innerWidth - (posisi acak dalam lebar pilar)
+        textElement.style.left = `${window.innerWidth - rightPillarWidth + (Math.random() * rightPillarWidth)}px`;
+        textElement.style.animationDelay = `${Math.random() * 5}s`; // Variasikan delay
+        document.body.appendChild(textElement);
+    }, 500); // Setiap 0.5 detik
+
+    // Initial positioning of windows
+    window.addEventListener('resize', () => {
+        interactiveWindows.forEach((windowEl, index) => {
+            windowEl.style.top = `${250 + index * 20}px`;
+            windowEl.style.left = `${window.innerWidth / 2 - windowEl.offsetWidth / 2 + index * 20}px`;
+        });
+    });
 });
