@@ -49,7 +49,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- INISIALISASI POSISI & FUNGSI JENDELA ---
     interactiveWindows.forEach((windowEl, index) => {
         // Posisi awal jendela agar tidak tumpang tindih dengan ikon desktop atau header
-        // Dikembalikan ke posisi awal yang lebih sentral atau sesuai keinginan default
         windowEl.style.top = `${250 + index * 20}px`;
         windowEl.style.left = `${window.innerWidth / 2 - windowEl.offsetWidth / 2 + index * 20}px`;
         windowEl.style.zIndex = highestZIndex + index + 1;
@@ -88,15 +87,6 @@ document.addEventListener('DOMContentLoaded', function() {
     function showWindow(selector) {
         const windowEl = document.querySelector(selector);
         if (windowEl) {
-            // Sembunyikan semua jendela lain sebelum menampilkan yang baru
-            interactiveWindows.forEach(win => {
-                if (win !== windowEl) {
-                    win.classList.add('hidden');
-                    const existingTab = taskbarContainer.querySelector(`[data-target="#${win.id}"]`);
-                    if (existingTab) existingTab.remove();
-                }
-            });
-
             windowEl.classList.remove('hidden');
             highestZIndex++;
             windowEl.style.zIndex = highestZIndex;
@@ -228,5 +218,4 @@ document.addEventListener('DOMContentLoaded', function() {
     setInterval(updateClock, 1000);
     updateClock();
 
-    // (DIHAPUS) Semua logika terkait falling text telah dihapus
 });
