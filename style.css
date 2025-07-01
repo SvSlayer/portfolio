@@ -643,7 +643,7 @@ button, a {
 }
 
 /* ======================================= */
-/* 9. Taskbar Styles                       */
+/* 9. Taskbar Styles (UPDATED)             */
 /* ======================================= */
 .taskbar {
     position: fixed;
@@ -655,10 +655,11 @@ button, a {
     border-top: 2px solid #FFFFFF;
     box-shadow: 0px -2px 0px 0px #4C23CD;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 8px;
+    align-items: center; /* (UBAH) Mengatur semua item sejajar di tengah secara vertikal */
+    padding: 0 4px;      /* (UBAH) Mengurangi padding agar lebih pas */
+    gap: 8px;            /* (TAMBAH) Memberi jarak antar elemen utama di taskbar */
     z-index: 1001;
+    /* (HAPUS) justify-content: space-between; dihapus agar kita bisa kontrol manual */
 }
 
 .start-button {
@@ -670,7 +671,7 @@ button, a {
     cursor: pointer;
     font-size: 0.8em;
     color: #4C23CD;
-    flex-shrink: 0;
+    flex-shrink: 0; /* Mencegah tombol start menyusut */
     font-weight: bold;
     transition: background-color 0.1s ease-out, border 0.1s ease-out;
 }
@@ -684,6 +685,9 @@ button, a {
 
 .footer {
     font-size: 12px;
+    margin-left: auto; /* (TAMBAH) Mendorong footer dan jam ke kanan */
+    flex-shrink: 0;     /* Mencegah footer menyusut */
+    white-space: nowrap;/* Mencegah teks footer turun baris */
 }
 
 .taskbar-time {
@@ -697,10 +701,11 @@ button, a {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0; /* Mencegah jam menyusut */
 }
 
 /* ======================================= */
-/* 10. Interactive Window & Taskbar Styles */
+/* 10. Interactive Window & Taskbar Styles (UPDATED) */
 /* ======================================= */
 .hidden {
     display: none !important;
@@ -709,8 +714,10 @@ button, a {
 #minimized-windows-container {
     display: flex;
     gap: 4px;
-    flex-grow: 1;
-    margin-left: 8px;
+    flex-grow: 1;      /* (UBAH) Membiarkan kontainer ini mengisi ruang kosong di tengah */
+    flex-shrink: 1;    /* (TAMBAH) Membiarkan kontainer menyusut jika perlu */
+    min-width: 0;      /* (TAMBAH) Trik flexbox untuk mencegah overflow */
+    overflow: hidden;  /* (TAMBAH) Menyembunyikan tab jika terlalu banyak dan tidak muat */
 }
 
 .minimized-tab {
