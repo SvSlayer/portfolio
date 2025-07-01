@@ -162,30 +162,23 @@ document.addEventListener('DOMContentLoaded', function() {
         contactForm.addEventListener('submit', async function(e) {
             e.preventDefault();
 
-            // Validasi reCAPTCHA di frontend
-            // Pastikan grecaptcha global object sudah tersedia
-            if (typeof grecaptcha === 'undefined') {
-                alert("reCAPTCHA is not loaded. Please try again or check your internet connection.");
-                console.error("reCAPTCHA object (grecaptcha) is undefined.");
-                return;
-            }
-
-            const recaptchaResponse = grecaptcha.getResponse(); // Mendapatkan token reCAPTCHA
-            if (recaptchaResponse.length === 0) {
-                alert("Please complete the reCAPTCHA to send your message.");
-                return; // Hentikan proses submit jika reCAPTCHA belum dicentang
-            }
+            // TIDAK PERLU VALIDASI reCAPTCHA di frontend lagi, Formspree akan menanganinya
+            // TIDAK PERLU menambahkan g-recaptcha-response ke FormData
 
             const formData = new FormData(contactForm);
-            formData.append('g-recaptcha-response', recaptchaResponse); // Penting untuk Formspree
-
             const originalButtonText = sendButton.textContent;
             sendButton.textContent = 'SENDING...';
             sendButton.disabled = true;
 
             try {
-                // GANTI INI DENGAN URL FORMSPREE ANDA YANG SEBENARNYA!
-                const FORMSPREE_URL = "https://formspree.io/f/mgvydonj"; 
+                // Menggunakan Environment Variable untuk URL Formspree
+                // PASTIKAN VITE_FORMSPREE_URL diatur di pengaturan Environment Variables Vercel Anda!
+                const FORMSPREE_URL = import.meta.env.VITE_FORMSPREE_URL; 
+
+                // Periksa apakah URL terdefinisi. Jika tidak, itu masalah konfigurasi ENV Var di Vercel.
+                if (!FORMSPREE_URL) {
+                    throw new Error("Formspree URL environment variable is not configured correctly in Vercel.");
+                }
                 
                 const response = await fetch(FORMSPREE_URL, {
                     method: 'POST',
@@ -196,21 +189,23 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (response.ok) {
                     sendButton.textContent = 'SENT! :D';
                     contactForm.reset();
-                    grecaptcha.reset(); // Reset reCAPTCHA setelah submit berhasil
+                    // TIDAK PERLU grecaptcha.reset() karena Formspree yang menangani CAPTCHA
                 } else {
                     // Coba baca respons JSON dari Formspree untuk error yang lebih spesifik
                     const errorData = await response.json();
                     if (errorData && Object.hasOwn(errorData, 'errors')) {
                         const errorMessages = errorData.errors.map(error => error.message).join(", ");
-                        alert(`Oops! There was a problem submitting your form: ${errorMessages}`);
+                        alert(`Oops! There was a problem submitting your form: ${errorMessages}. Please check your Formspree settings.`);
                     } else {
-                        alert('Oops! There was a problem submitting your form. Please check your reCAPTCHA configuration and Formspree settings.');
+                        // Pesan lebih umum jika Formspree tidak memberikan error spesifik
+                        alert('Oops! There was a problem submitting your form. Formspree might be blocking it (e.g., spam protection).');
                     }
                     sendButton.textContent = 'ERROR :(';
                 }
             } catch (error) {
-                alert('Oops! There was a problem with the network or server connection. Please try again.');
-                console.error('Fetch error:', error); // Log error ke console
+                // Catch untuk error jaringan, atau jika FORMSPREE_URL tidak terdefinisi
+                alert('Oops! There was a problem with the network, server connection, or configuration. Please try again.');
+                console.error('Fetch error or config error:', error); // Log error ke console
                 sendButton.textContent = 'ERROR :(';
             } finally {
                 setTimeout(() => {
