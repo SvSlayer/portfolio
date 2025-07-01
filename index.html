@@ -18,6 +18,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link rel="stylesheet" href="style.css">
+
+    <!-- (TAMBAH) Library EmailJS -->
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+    </script>
+    <script type="text/javascript">
+        (function(){
+            // Ganti dengan Public Key Anda dari dasbor EmailJS
+            emailjs.init({
+              publicKey: "YOUR_PUBLIC_KEY",
+            });
+        })();
+    </script>
 </head>
 <body>
     <div id="loading-screen">
@@ -231,8 +244,7 @@
                             <div class="controls"><button>_</button><button>▢</button><button>X</button></div>
                         </div>
                         <div class="window-content-inner">
-                            <!-- (PERBAIKAN) Menambahkan method="POST" dan action ke tag form -->
-                            <form id="contact-form" class="email-form" method="POST" action="https://formspree.io/f/mgvydonj">
+                            <form id="contact-form" class="email-form">
                                 <img src="images/globe.png" alt="globe icon" class="form-icon" onerror="this.onerror=null;this.src='https://placehold.co/48x48/EEB1E8/4C23CD?text=E';">
                                 
                                 <label for="name">Name</label>

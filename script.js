@@ -153,41 +153,29 @@ document.addEventListener('DOMContentLoaded', function() {
         const sendButton = contactForm.querySelector('.send-button');
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            const formData = new FormData(contactForm);
+            
             const originalButtonText = sendButton.textContent;
             sendButton.textContent = 'SENDING...';
             sendButton.disabled = true;
 
-            // (PERBAIKAN) Menggunakan URL Formspree Anda secara langsung
-            fetch("https://formspree.io/f/mgvydonj", {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            }).then(response => {
-                if (response.ok) {
+            // (UBAH) Menggunakan EmailJS
+            // Ganti dengan Service ID, Template ID, dan Public Key Anda dari EmailJS
+            const serviceID = 'service_wy2stqb';
+            const templateID = 'xnKSx6VUvmwHuGR5C';
+
+            emailjs.sendForm(serviceID, templateID, this)
+                .then(() => {
                     sendButton.textContent = 'SENT! :D';
                     contactForm.reset();
-                } else {
-                    response.json().then(data => {
-                        if (Object.hasOwn(data, 'errors')) {
-                            alert(data["errors"].map(error => error["message"]).join(", "));
-                        } else {
-                            alert('Oops! There was a problem submitting your form');
-                        }
-                    });
+                }, (err) => {
                     sendButton.textContent = 'ERROR :(';
-                }
-            }).catch(error => {
-                alert('Oops! There was a problem with the network.');
-                sendButton.textContent = 'ERROR :(';
-            }).finally(() => {
-                setTimeout(() => {
-                    sendButton.textContent = originalButtonText;
-                    sendButton.disabled = false;
-                }, 3000);
-            });
+                    alert(JSON.stringify(err));
+                }).finally(() => {
+                    setTimeout(() => {
+                        sendButton.textContent = originalButtonText;
+                        sendButton.disabled = false;
+                    }, 3000);
+                });
         });
     }
     const allBars = document.querySelectorAll('.energy-bar, .creativity-bar, .brain-bar');
