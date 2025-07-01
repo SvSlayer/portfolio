@@ -17,12 +17,14 @@ body {
     font-family: 'Press Start 2P', cursive;
     color: #4C23CD;
     font-size: 14px;
-    padding-top: 170px; /* (UBAH) Mendorong semua konten ke bawah header */
+    /* (HAPUS) Padding tidak lagi diperlukan, posisi jendela diatur oleh JS */
+    /* padding-top: 170px; */ 
     padding-bottom: 30px;
     font-smooth: never;
     -webkit-font-smoothing: none;
     -moz-osx-font-smoothing: grayscale;
     image-rendering: pixelated;
+    overflow: hidden; /* (TAMBAH) Mencegah scroll pada body saat jendela digeser */
 }
 
 button, a {
@@ -38,7 +40,9 @@ button, a {
     border: 2px solid #4C23CD;
     background-color: #F0D1F1;
     box-shadow: 2px 2px 0px 0px #808080;
-    position: relative;
+    position: absolute; /* (UBAH) Jendela sekarang diposisikan secara absolut */
+    width: calc(100vw - 72px); /* (TAMBAH) Atur lebar awal */
+    max-width: 900px; /* (TAMBAH) Atur lebar maksimum */
 }
 
 .window-frame:target {
@@ -54,7 +58,17 @@ button, a {
     justify-content: space-between;
     align-items: center;
     border-bottom: 2px solid #4C23CD;
+    cursor: grab; /* (TAMBAH) Kursor untuk menandakan bisa digeser */
 }
+
+/* (TAMBAH) Style saat jendela sedang digeser */
+.window-frame.is-dragging .window-title-bar {
+    cursor: grabbing;
+}
+.window-frame.is-dragging {
+    user-select: none; /* Mencegah teks terseleksi saat digeser */
+}
+
 
 .window-title-bar span {
     background-color: transparent;
@@ -219,11 +233,6 @@ button, a {
 /* ======================================= */
 /* 4. About Me Section Styles              */
 /* ======================================= */
-.about-section {
-    width: calc(100vw - 72px);
-    max-width: 900px;
-    margin: 20px auto; /* (UBAH) Menyamakan margin dengan seksi lain */
-}
 
 .about-content,
 .skills-content,
@@ -295,11 +304,6 @@ button, a {
 /* ======================================= */
 /* 5. Skills Page Styles                   */
 /* ======================================= */
-.skills-section {
-    width: calc(100vw - 72px);
-    max-width: 900px;
-    margin: 20px auto;
-}
 
 .skills-content {
     display: flex;
@@ -373,11 +377,6 @@ button, a {
 /* ======================================= */
 /* 6. Portfolio Section Styles             */
 /* ======================================= */
-.portfolio-section {
-    width: calc(100vw - 72px);
-    max-width: 900px;
-    margin: 20px auto;
-}
 
 .portfolio-content {
     background-color: #d6e4f0;
@@ -457,11 +456,6 @@ button, a {
 /* ======================================= */
 /* 7. Contact Section Styles               */
 /* ======================================= */
-.contact-section {
-    width: calc(100vw - 72px);
-    max-width: 900px;
-    margin: 20px auto;
-}
 
 .contact-content {
     background-color: #d6e4f0;
