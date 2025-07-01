@@ -159,39 +159,54 @@ document.addEventListener('DOMContentLoaded', function() {
     const contactForm = document.getElementById('contact-form');
     if (contactForm) {
         const sendButton = contactForm.querySelector('.send-button');
-        contactForm.addEventListener('submit', function(e) {
+        contactForm.addEventListener('submit', async function(e) { // (UBAH) Tambahkan 'async' di sini
             e.preventDefault();
+
+            // (BARU) Validasi reCAPTCHA di frontend
+            const recaptchaResponse = grecaptcha.getResponse(); // Mendapatkan token reCAPTCHA
+            if (recaptchaResponse.length === 0) {
+                alert("Please complete the reCAPTCHA to send your message.");
+                return; // Hentikan proses submit jika reCAPTCHA belum dicentang
+            }
+
             const formData = new FormData(contactForm);
+            // (BARU) Tambahkan reCAPTCHA response ke FormData
+            formData.append('g-recaptcha-response', recaptchaResponse); // Penting untuk Formspree
+
             const originalButtonText = sendButton.textContent;
             sendButton.textContent = 'SENDING...';
             sendButton.disabled = true;
-            fetch(import.meta.env.VITE_FORMSPREE_URL, { // Pastikan VITE_FORMSPREE_URL sudah dikonfigurasi
-                method: 'POST',
-                body: JSON.stringify(Object.fromEntries(formData)),
-                headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
-            }).then(response => {
+
+            try { // (BARU) Gunakan try-catch untuk penanganan error fetch yang lebih baik
+                const response = await fetch(import.meta.env.VITE_FORMSPREE_URL, {
+                    method: 'POST',
+                    body: formData, // (UBAH) Kirim FormData langsung, bukan JSON.stringify
+                    headers: { 'Accept': 'application/json' } // (UBAH) Hapus 'Content-Type': 'application/json'
+                });
+
                 if (response.ok) {
                     sendButton.textContent = 'SENT! :D';
                     contactForm.reset();
+                    grecaptcha.reset(); // (BARU) Reset reCAPTCHA setelah submit berhasil
                 } else {
-                    response.json().then(data => {
-                        if (Object.hasOwn(data, 'errors')) {
-                            alert(data["errors"].map(error => error["message"]).join(", "));
-                        } else {
-                            alert('Oops! There was a problem submitting your form');
-                        }
-                    });
+                    const data = await response.json(); // (UBAH) Tangani respons JSON untuk pesan error
+                    if (Object.hasOwn(data, 'errors')) {
+                        alert(data["errors"].map(error => error["message"]).join(", "));
+                    } else {
+                        alert('Oops! There was a problem submitting your form');
+                    }
                     sendButton.textContent = 'ERROR :(';
                 }
-            }).catch(error => {
-                alert('Oops! There was a problem with the network.');
+            } catch (error) {
+                alert('Oops! There was a problem with the network or server connection.');
+                console.error('Fetch error:', error); // Log error ke console
                 sendButton.textContent = 'ERROR :(';
-            }).finally(() => {
+            } finally {
                 setTimeout(() => {
                     sendButton.textContent = originalButtonText;
                     sendButton.disabled = false;
                 }, 3000);
-            });
+            }
         });
     }
 

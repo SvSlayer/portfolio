@@ -18,6 +18,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link rel="stylesheet" href="style.css">
+    
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
     <div id="loading-screen">
@@ -243,7 +245,8 @@
                                 <label for="message">Message</label>
                                 <textarea id="message" name="message" class="retro-input" placeholder="Your Message here!" rows="3" required></textarea>
                                 
-                                <button type="submit" class="send-button">SEND!!!</button>
+                                <div class="g-recaptcha" data-sitekey="6Le-IHQrAAAAAGb7PD9zg7w75_68JZq4OGV-W_Bp"></div>
+                                <br> <button type="submit" class="send-button">SEND!!!</button>
                             </form>
                         </div>
                     </div>
