@@ -17,6 +17,7 @@ body {
     font-family: 'Press Start 2P', cursive;
     color: #4C23CD;
     font-size: 14px;
+    padding-top: 170px; /* (UBAH) Mendorong semua konten ke bawah header */
     padding-bottom: 30px;
     font-smooth: never;
     -webkit-font-smoothing: none;
@@ -42,13 +43,6 @@ button, a {
 
 .window-frame:target {
     animation: target-focus-effect 0.5s cubic-bezier(.25,.46,.45,.94) both;
-}
-
-.about-section,
-.skills-section,
-.portfolio-section,
-.contact-section {
-    scroll-margin-top: 170px; 
 }
 
 .window-title-bar {
@@ -228,8 +222,7 @@ button, a {
 .about-section {
     width: calc(100vw - 72px);
     max-width: 900px;
-    margin: 0 auto;
-    margin-top: 170px;
+    margin: 20px auto; /* (UBAH) Menyamakan margin dengan seksi lain */
 }
 
 .about-content,
@@ -657,7 +650,7 @@ button, a {
     display: flex;
     align-items: center; 
     padding: 0 4px;      
-    gap: 4px; /* (UBAH) Mengurangi gap agar pembatas lebih rapat */
+    gap: 4px;
     z-index: 1001;
 }
 
@@ -710,7 +703,6 @@ button, a {
     display: none !important;
 }
 
-/* (TAMBAH) Style untuk pembatas vertikal */
 .taskbar-separator {
     width: 2px;
     height: 22px;
@@ -733,20 +725,18 @@ button, a {
     background-color: #EAE4EC;
     border: 2px solid;
     border-color: #FFFFFF #4C23CD #4C23CD #FFFFFF;
-    padding: 0 8px; /* (UBAH) Atur padding agar pas dengan tinggi */
+    padding: 0 8px;
     cursor: pointer;
     font-size: 0.8em;
     color: #4C23CD;
     font-weight: bold;
     transition: all 0.1s ease-out;
-    
-    /* (UBAH) Properti untuk menyamakan ukuran dan tata letak */
     display: flex;
     align-items: center;
-    gap: 6px; /* Jarak antara ikon dan teks */
-    width: 160px; /* Lebar yang sama untuk semua tab */
-    height: 24px; /* Tinggi yang sama */
-    flex-shrink: 0; /* Mencegah tab menyusut */
+    gap: 6px;
+    width: 160px;
+    height: 24px;
+    flex-shrink: 0;
 }
 
 .minimized-tab:active {
@@ -755,20 +745,18 @@ button, a {
     transform: translate(1px, 1px);
 }
 
-/* (TAMBAH) Style untuk ikon di dalam tab */
 .minimized-tab-icon {
-    font-family: 'Arial', sans-serif; /* Gunakan font yang mendukung simbol ini */
+    font-family: 'Arial', sans-serif;
     font-size: 14px;
     line-height: 1;
 }
 
-/* (TAMBAH) Style untuk teks di dalam tab agar bisa diberi ellipsis */
 .minimized-tab-text {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    text-align: left; /* Memastikan teks rata kiri */
-    flex-grow: 1; /* Biarkan teks mengisi sisa ruang */
+    text-align: left;
+    flex-grow: 1;
 }
 
 
