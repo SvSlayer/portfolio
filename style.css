@@ -43,7 +43,6 @@ button, a {
     max-width: 900px;
 }
 
-/* (UBAH) Mengganti :target dengan class .is-opening untuk animasi */
 .window-frame.is-opening {
     animation: glitch-open-effect 0.5s cubic-bezier(.25,.46,.45,.94) both;
 }
@@ -194,17 +193,15 @@ button, a {
     font-size: 0.8em;
 }
 
-/* (TAMBAH) Style untuk kontainer ikon desktop */
 #desktop-container {
     position: absolute;
-    top: 30px;
+    top: 180px; /* (UBAH) Posisi di bawah header */
     left: 20px;
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-/* (TAMBAH) Style untuk setiap ikon desktop */
 .desktop-icon {
     display: flex;
     flex-direction: column;
@@ -214,24 +211,24 @@ button, a {
     text-align: center;
 }
 
-.desktop-icon img {
+.desktop-icon svg {
     width: 64px;
     height: 64px;
     margin-bottom: 8px;
+    filter: drop-shadow(2px 2px 0px rgba(0,0,0,0.2));
+    transition: transform 0.2s ease;
+}
+
+.desktop-icon:hover svg {
+    transform: scale(1.1);
 }
 
 .desktop-icon p {
     margin: 0;
     padding: 2px 4px;
-    background-color: #EEB1E8;
     color: #4C23CD;
     font-size: 0.8em;
-    border: 1px solid #4C23CD;
-}
-
-.desktop-icon:hover p {
-    background-color: #4C23CD;
-    color: #FFFFFF;
+    /* (HAPUS) Menghilangkan highlight */
 }
 
 .progress-item {
@@ -822,7 +819,6 @@ button, a {
     }
 }
 
-/* (UBAH) Mengganti nama keyframes agar lebih sesuai */
 @keyframes glitch-open-effect {
     0% {
         transform: translate(0, 0);

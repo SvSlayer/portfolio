@@ -4,7 +4,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const navLinks = document.querySelectorAll('header nav a');
     const taskbarContainer = document.getElementById('minimized-windows-container');
     const interactiveWindows = document.querySelectorAll('.about-section, .skills-section, .portfolio-section, .contact-section');
-    let highestZIndex = 10; // Untuk melacak jendela mana yang paling depan
+    const desktopIcons = document.querySelectorAll('.desktop-icon'); // (BARU) Mengambil semua ikon desktop
+    let highestZIndex = 10;
 
     // --- FUNGSI UNTUK MEMBUAT JENDELA BISA DIGESER (DRAGGABLE) ---
     function makeWindowDraggable(windowEl) {
@@ -12,7 +13,6 @@ document.addEventListener('DOMContentLoaded', function() {
         let isDragging = false;
         let offsetX, offsetY;
 
-        // Fungsi untuk membawa jendela ke depan saat diklik
         function bringToFront() {
             highestZIndex++;
             windowEl.style.zIndex = highestZIndex;
@@ -22,27 +22,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
         titleBar.addEventListener('mousedown', (e) => {
             isDragging = true;
-            // Hitung posisi awal mouse relatif terhadap sudut kiri atas jendela
             offsetX = e.clientX - windowEl.getBoundingClientRect().left;
             offsetY = e.clientY - windowEl.getBoundingClientRect().top;
-            
             windowEl.classList.add('is-dragging');
-            bringToFront(); // Bawa ke depan saat mulai digeser
+            bringToFront();
         });
 
         document.addEventListener('mousemove', (e) => {
             if (!isDragging) return;
-            // Hitung posisi baru jendela
             let newX = e.clientX - offsetX;
             let newY = e.clientY - offsetY;
-
-            // Batasi agar jendela tidak keluar dari viewport
             const maxW = window.innerWidth - windowEl.offsetWidth;
             const maxH = window.innerHeight - windowEl.offsetHeight;
-
             newX = Math.max(0, Math.min(newX, maxW));
             newY = Math.max(0, Math.min(newY, maxH));
-
             windowEl.style.left = `${newX}px`;
             windowEl.style.top = `${newY}px`;
         });
@@ -55,15 +48,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // --- INISIALISASI POSISI & FUNGSI JENDELA ---
     interactiveWindows.forEach((windowEl, index) => {
-        // Atur posisi awal agar tidak menumpuk
         windowEl.style.top = `${180 + index * 40}px`;
         windowEl.style.left = `${50 + index * 40}px`;
         windowEl.style.zIndex = highestZIndex + index + 1;
-
-        // Terapkan fungsionalitas geser
         makeWindowDraggable(windowEl);
 
-        // Fungsionalitas tombol yang sudah ada
         const minimizeBtn = windowEl.querySelector('.minimize-btn');
         const closeBtn = windowEl.querySelector('.close-btn');
         const windowId = '#' + windowEl.id;
@@ -100,16 +89,29 @@ document.addEventListener('DOMContentLoaded', function() {
             windowEl.classList.remove('hidden');
             highestZIndex++;
             windowEl.style.zIndex = highestZIndex;
+            
+            windowEl.classList.add('is-opening');
+            setTimeout(() => {
+                windowEl.classList.remove('is-opening');
+            }, 500);
         }
         const existingTab = taskbarContainer.querySelector(`[data-target="${selector}"]`);
         if (existingTab) existingTab.remove();
     }
 
-    // --- EVENT LISTENER NAVIGASI & TASKBAR ---
+    // --- EVENT LISTENER NAVIGASI, IKON DESKTOP, & TASKBAR ---
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
-            e.preventDefault(); // Mencegah scroll, karena jendela sekarang absolut
+            e.preventDefault();
             const targetSelector = link.getAttribute('href');
+            showWindow(targetSelector);
+        });
+    });
+
+    // (BARU) Menambahkan event listener untuk setiap ikon di desktop
+    desktopIcons.forEach(icon => {
+        icon.addEventListener('click', () => {
+            const targetSelector = icon.dataset.target;
             showWindow(targetSelector);
         });
     });
