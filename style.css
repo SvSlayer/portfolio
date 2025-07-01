@@ -655,11 +655,10 @@ button, a {
     border-top: 2px solid #FFFFFF;
     box-shadow: 0px -2px 0px 0px #4C23CD;
     display: flex;
-    align-items: center; /* (UBAH) Mengatur semua item sejajar di tengah secara vertikal */
-    padding: 0 4px;      /* (UBAH) Mengurangi padding agar lebih pas */
-    gap: 8px;            /* (TAMBAH) Memberi jarak antar elemen utama di taskbar */
+    align-items: center; 
+    padding: 0 4px;      
+    gap: 8px;            
     z-index: 1001;
-    /* (HAPUS) justify-content: space-between; dihapus agar kita bisa kontrol manual */
 }
 
 .start-button {
@@ -671,7 +670,7 @@ button, a {
     cursor: pointer;
     font-size: 0.8em;
     color: #4C23CD;
-    flex-shrink: 0; /* Mencegah tombol start menyusut */
+    flex-shrink: 0; 
     font-weight: bold;
     transition: background-color 0.1s ease-out, border 0.1s ease-out;
 }
@@ -685,9 +684,9 @@ button, a {
 
 .footer {
     font-size: 12px;
-    margin-left: auto; /* (TAMBAH) Mendorong footer dan jam ke kanan */
-    flex-shrink: 0;     /* Mencegah footer menyusut */
-    white-space: nowrap;/* Mencegah teks footer turun baris */
+    margin-left: auto; 
+    flex-shrink: 0;     
+    white-space: nowrap;
 }
 
 .taskbar-time {
@@ -701,7 +700,7 @@ button, a {
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0; /* Mencegah jam menyusut */
+    flex-shrink: 0; 
 }
 
 /* ======================================= */
@@ -714,17 +713,16 @@ button, a {
 #minimized-windows-container {
     display: flex;
     gap: 4px;
-    flex-grow: 1;      /* (UBAH) Membiarkan kontainer ini mengisi ruang kosong di tengah */
-    flex-shrink: 1;    /* (TAMBAH) Membiarkan kontainer menyusut jika perlu */
-    min-width: 0;      /* (TAMBAH) Trik flexbox untuk mencegah overflow */
-    overflow: hidden;  /* (TAMBAH) Menyembunyikan tab jika terlalu banyak dan tidak muat */
+    flex-grow: 1;      
+    flex-shrink: 1;    
+    min-width: 0;      
+    overflow: hidden;  
 }
 
 .minimized-tab {
-    background-color: #F0D1F1;
-    border: 2px solid #000000;
-    border-top-color: #FFFFFF;
-    border-left-color: #FFFFFF;
+    background-color: #EAE4EC; /* (UBAH) Warna latar lebih netral */
+    border: 2px solid; /* (UBAH) Menggunakan border solid untuk efek 3D */
+    border-color: #FFFFFF #4C23CD #4C23CD #FFFFFF; /* (UBAH) Atas/Kiri terang, Bawah/Kanan gelap untuk efek timbul */
     padding: 2px 10px;
     cursor: pointer;
     font-size: 0.8em;
@@ -735,13 +733,13 @@ button, a {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    transition: all 0.1s ease-out; /* (TAMBAH) Transisi halus */
 }
 
 .minimized-tab:active {
-    border-color: #FFFFFF;
-    border-right-color: #000000;
-    border-bottom-color: #000000;
-    background-color: #808080;
+    border-color: #4C23CD #FFFFFF #FFFFFF #4C23CD; /* (UBAH) Kebalikan dari atas untuk efek tertekan */
+    background-color: #e3c3e4; /* (UBAH) Warna sama dengan taskbar agar terlihat cekung */
+    transform: translate(1px, 1px); /* (TAMBAH) Sedikit pergeseran untuk memperkuat efek tertekan */
 }
 
 /* ======================================= */
