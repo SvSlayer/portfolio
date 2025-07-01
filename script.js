@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (windowEl) {
             windowEl.classList.remove('hidden');
         }
-        // Hapus juga tab-nya dari taskbar jika ada
         const existingTab = taskbarContainer.querySelector(`[data-target="${selector}"]`);
         if (existingTab) {
             existingTab.remove();
@@ -21,7 +20,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- EVENT LISTENER UNTUK NAVIGASI HEADER ---
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
-            // Biarkan scroll berjalan, tapi pastikan jendela target terlihat
             const targetSelector = link.getAttribute('href');
             showWindow(targetSelector);
         });
@@ -34,11 +32,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const windowId = '#' + windowEl.id;
         const windowTitle = windowEl.querySelector('.window-title-bar span').textContent;
 
-        // Fungsi Tombol Close
         if (closeBtn) {
             closeBtn.addEventListener('click', () => {
                 windowEl.classList.add('hidden');
-                // Jika jendela ditutup, hapus juga tab-nya dari taskbar
                 const existingTab = taskbarContainer.querySelector(`[data-target="${windowId}"]`);
                 if (existingTab) {
                     existingTab.remove();
@@ -46,18 +42,18 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
 
-        // Fungsi Tombol Minimize
         if (minimizeBtn) {
             minimizeBtn.addEventListener('click', () => {
                 windowEl.classList.add('hidden');
-
-                // Cek apakah tab sudah ada, jika belum, buat baru
                 const existingTab = taskbarContainer.querySelector(`[data-target="${windowId}"]`);
                 if (!existingTab) {
                     const tab = document.createElement('button');
                     tab.className = 'minimized-tab';
-                    tab.textContent = windowTitle;
-                    tab.dataset.target = windowId; // Simpan ID target di data-attribute
+                    tab.dataset.target = windowId;
+                    
+                    // (UBAH) Menambahkan ikon dan teks dengan innerHTML
+                    tab.innerHTML = `<span class="minimized-tab-icon">🗔</span><span class="minimized-tab-text">${windowTitle}</span>`;
+                    
                     taskbarContainer.appendChild(tab);
                 }
             });
@@ -66,18 +62,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // --- EVENT LISTENER UNTUK TASKBAR (UNTUK RESTORE JENDELA) ---
     taskbarContainer.addEventListener('click', (e) => {
-        if (e.target.classList.contains('minimized-tab')) {
-            const targetSelector = e.target.dataset.target;
+        const tab = e.target.closest('.minimized-tab');
+        if (tab) {
+            const targetSelector = tab.dataset.target;
             showWindow(targetSelector);
-            e.target.remove(); // Hapus tab dari taskbar setelah diklik
         }
     });
     
     // ========================================================
-    // KODE ASLI ANDA YANG TIDAK BERUBAH DILETAKKAN DI BAWAH INI
+    // KODE ASLI ANDA
     // ========================================================
 
-    // --- BLOK KODE UNTUK EFEK BOOTING ---
+    // --- EFEK BOOTING ---
     const loadingScreen = document.getElementById('loading-screen');
     const bootTextElement = document.getElementById('boot-text');
     const bootSequence = [
@@ -107,10 +103,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     typeBootText();
 
-    // --- BLOK KODE UNTUK FORMULIR KONTAK ---
+    // --- FORMULIR KONTAK ---
     const contactForm = document.getElementById('contact-form');
     if (contactForm) {
-        // ... (seluruh kode form kontak Anda tetap sama, tidak perlu diubah) ...
         const sendButton = contactForm.querySelector('.send-button');
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
@@ -149,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // --- BLOK KODE UNTUK ANIMASI PROGRESS BAR ---
+    // --- ANIMASI PROGRESS BAR ---
     const allBars = document.querySelectorAll('.energy-bar, .creativity-bar, .brain-bar');
     function animateProgressBars() {
         allBars.forEach(bar => {
@@ -162,7 +157,7 @@ document.addEventListener('DOMContentLoaded', function() {
     setInterval(animateProgressBars, Math.random() * 1000 + 2000);
     animateProgressBars();
 
-    // --- BLOK KODE UNTUK JAM TASKBAR ---
+    // --- JAM TASKBAR ---
     const clockElement = document.getElementById('taskbar-clock');
     function updateClock() {
         if (clockElement) {
