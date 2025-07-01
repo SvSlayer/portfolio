@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const navLinks = document.querySelectorAll('header nav a');
     const taskbarContainer = document.getElementById('minimized-windows-container');
     const interactiveWindows = document.querySelectorAll('.about-section, .skills-section, .portfolio-section, .contact-section');
-    const desktopIcons = document.querySelectorAll('.desktop-icon'); // (BARU) Mengambil semua ikon desktop
+    const desktopIcons = document.querySelectorAll('.desktop-icon');
     let highestZIndex = 10;
 
     // --- FUNGSI UNTUK MEMBUAT JENDELA BISA DIGESER (DRAGGABLE) ---
@@ -108,7 +108,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // (BARU) Menambahkan event listener untuk setiap ikon di desktop
     desktopIcons.forEach(icon => {
         icon.addEventListener('click', () => {
             const targetSelector = icon.dataset.target;
@@ -158,7 +157,9 @@ document.addEventListener('DOMContentLoaded', function() {
             const originalButtonText = sendButton.textContent;
             sendButton.textContent = 'SENDING...';
             sendButton.disabled = true;
-            fetch(import.meta.env.VITE_FORMSPREE_URL, {
+
+            // (PERBAIKAN) Ganti baris ini dengan URL Formspree Anda
+            fetch("https://formspree.io/f/mgvydonj", {
                 method: 'POST',
                 body: JSON.stringify(Object.fromEntries(formData)),
                 headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
