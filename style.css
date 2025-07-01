@@ -381,7 +381,6 @@ button, a {
 /* 6. Portfolio Section Styles             */
 /* ======================================= */
 .portfolio-section {
-    /* --- PERBAIKAN DI SINI --- */
     width: calc(100vw - 72px);
     max-width: 900px;
     margin: 20px auto;
@@ -392,9 +391,11 @@ button, a {
     padding: 30px;
 }
 
+/* --- FIX: Using Flexbox for centering items --- */
 .portfolio-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* This will center the items */
     gap: 30px;
 }
 
@@ -405,6 +406,8 @@ button, a {
     border: 2px solid #4C23CD;
     box-shadow: 2px 2px 0px 0px #808080;
     transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+    width: calc(50% - 15px); /* For 2 columns, half the gap */
+    min-width: 300px; /* Minimum width before wrapping */
 }
 
 .project-card:hover {
@@ -463,7 +466,6 @@ button, a {
 /* 7. Contact Section Styles               */
 /* ======================================= */
 .contact-section {
-    /* --- PERBAIKAN DI SINI --- */
     width: calc(100vw - 72px);
     max-width: 900px;
     margin: 20px auto;
@@ -708,7 +710,12 @@ button, a {
         margin-bottom: 0;
     }
     .portfolio-grid {
-        grid-template-columns: repeat(1, 1fr);
+        /* On tablets, let them stack */
+        flex-direction: column;
+        align-items: center;
+    }
+    .project-card {
+        width: 80%; /* Take up more width on tablet */
     }
     .contact-grid-container {
         grid-template-columns: 1fr;
@@ -718,7 +725,10 @@ button, a {
 /* For Desktops (min-width: 1024px) */
 @media (min-width: 1024px) {
     .portfolio-grid {
-        grid-template-columns: repeat(2, 1fr);
+        flex-direction: row; /* Back to row for desktop */
+    }
+    .project-card {
+        width: calc(50% - 15px); /* Back to 2 columns */
     }
     .contact-grid-container {
         grid-template-columns: 1fr 1fr;
