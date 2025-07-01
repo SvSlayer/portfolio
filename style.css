@@ -700,6 +700,38 @@ button, a {
     justify-content: center;
 }
 
+/* Style untuk Jendela yang di-minimize, maximize, dan hidden */
+
+/* Menyembunyikan konten saat jendela di-minimize */
+.window-content-inner.minimized {
+    display: none;
+}
+
+/* Membuat jendela jadi fullscreen saat di-maximize */
+.window-frame.maximized {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 2000; /* Pastikan di atas elemen lain */
+    margin-top: 0; /* Reset margin */
+}
+
+/* Menyesuaikan konten saat jendela di-maximize agar bisa di-scroll */
+.window-frame.maximized .window-content-inner {
+    height: calc(100% - 30px); /* Kalkulasi tinggi konten */
+    overflow-y: auto; /* Tambah scroll jika kontennya panjang */
+}
+
+/* Transisi untuk menyembunyikan jendela saat ditutup */
+.window-frame.hidden {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none; /* Agar tidak bisa diklik saat transparan */
+}
+
 /* ======================================= */
 /* 10. Responsive Styles & Animations      */
 /* ======================================= */
