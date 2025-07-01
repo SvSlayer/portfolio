@@ -17,14 +17,12 @@ body {
     font-family: 'Press Start 2P', cursive;
     color: #4C23CD;
     font-size: 14px;
-    /* (HAPUS) Padding tidak lagi diperlukan, posisi jendela diatur oleh JS */
-    /* padding-top: 170px; */ 
     padding-bottom: 30px;
     font-smooth: never;
     -webkit-font-smoothing: none;
     -moz-osx-font-smoothing: grayscale;
     image-rendering: pixelated;
-    overflow: hidden; /* (TAMBAH) Mencegah scroll pada body saat jendela digeser */
+    overflow: hidden;
 }
 
 button, a {
@@ -40,13 +38,14 @@ button, a {
     border: 2px solid #4C23CD;
     background-color: #F0D1F1;
     box-shadow: 2px 2px 0px 0px #808080;
-    position: absolute; /* (UBAH) Jendela sekarang diposisikan secara absolut */
-    width: calc(100vw - 72px); /* (TAMBAH) Atur lebar awal */
-    max-width: 900px; /* (TAMBAH) Atur lebar maksimum */
+    position: absolute;
+    width: calc(100vw - 72px);
+    max-width: 900px;
 }
 
-.window-frame:target {
-    animation: target-focus-effect 0.5s cubic-bezier(.25,.46,.45,.94) both;
+/* (UBAH) Mengganti :target dengan class .is-opening untuk animasi */
+.window-frame.is-opening {
+    animation: glitch-open-effect 0.5s cubic-bezier(.25,.46,.45,.94) both;
 }
 
 .window-title-bar {
@@ -58,15 +57,14 @@ button, a {
     justify-content: space-between;
     align-items: center;
     border-bottom: 2px solid #4C23CD;
-    cursor: grab; /* (TAMBAH) Kursor untuk menandakan bisa digeser */
+    cursor: grab;
 }
 
-/* (TAMBAH) Style saat jendela sedang digeser */
 .window-frame.is-dragging .window-title-bar {
     cursor: grabbing;
 }
 .window-frame.is-dragging {
-    user-select: none; /* Mencegah teks terseleksi saat digeser */
+    user-select: none;
 }
 
 
@@ -128,7 +126,7 @@ button, a {
 }
 
 /* ======================================= */
-/* 3. Header (Main Navigation) Styles      */
+/* 3. Header & Desktop Icons (UPDATED)     */
 /* ======================================= */
 .main-header {
     width: calc(100vw - 52px);
@@ -196,6 +194,46 @@ button, a {
     font-size: 0.8em;
 }
 
+/* (TAMBAH) Style untuk kontainer ikon desktop */
+#desktop-container {
+    position: absolute;
+    top: 30px;
+    left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* (TAMBAH) Style untuk setiap ikon desktop */
+.desktop-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.desktop-icon img {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 8px;
+}
+
+.desktop-icon p {
+    margin: 0;
+    padding: 2px 4px;
+    background-color: #EEB1E8;
+    color: #4C23CD;
+    font-size: 0.8em;
+    border: 1px solid #4C23CD;
+}
+
+.desktop-icon:hover p {
+    background-color: #4C23CD;
+    color: #FFFFFF;
+}
+
 .progress-item {
     display: flex;
     align-items: center;
@@ -233,7 +271,6 @@ button, a {
 /* ======================================= */
 /* 4. About Me Section Styles              */
 /* ======================================= */
-
 .about-content,
 .skills-content,
 .portfolio-content,
@@ -304,7 +341,6 @@ button, a {
 /* ======================================= */
 /* 5. Skills Page Styles                   */
 /* ======================================= */
-
 .skills-content {
     display: flex;
     justify-content: center;
@@ -377,7 +413,6 @@ button, a {
 /* ======================================= */
 /* 6. Portfolio Section Styles             */
 /* ======================================= */
-
 .portfolio-content {
     background-color: #d6e4f0;
     padding: 30px;
@@ -456,7 +491,6 @@ button, a {
 /* ======================================= */
 /* 7. Contact Section Styles               */
 /* ======================================= */
-
 .contact-content {
     background-color: #d6e4f0;
     padding: 30px;
@@ -788,7 +822,8 @@ button, a {
     }
 }
 
-@keyframes target-focus-effect {
+/* (UBAH) Mengganti nama keyframes agar lebih sesuai */
+@keyframes glitch-open-effect {
     0% {
         transform: translate(0, 0);
         box-shadow: 2px 2px 0px 0px #808080;

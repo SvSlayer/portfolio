@@ -56,7 +56,28 @@
         </div>
     </header>
 
-    <section id="about" class="about-section window-frame">
+    <!-- (BARU) Wadah untuk ikon-ikon di desktop -->
+    <div id="desktop-container">
+        <div class="desktop-icon" data-target="#about">
+            <img src="https://placehold.co/64x64/EEB1E8/4C23CD?text=A" alt="About Me Icon" onerror="this.onerror=null;this.src='https://placehold.co/64x64/EEB1E8/4C23CD?text=A';">
+            <p>About Me</p>
+        </div>
+        <div class="desktop-icon" data-target="#skills">
+            <img src="https://placehold.co/64x64/EEB1E8/4C23CD?text=S" alt="Skills Icon" onerror="this.onerror=null;this.src='https://placehold.co/64x64/EEB1E8/4C23CD?text=S';">
+            <p>Skills</p>
+        </div>
+        <div class="desktop-icon" data-target="#portfolio">
+            <img src="https://placehold.co/64x64/EEB1E8/4C23CD?text=P" alt="Portfolio Icon" onerror="this.onerror=null;this.src='https://placehold.co/64x64/EEB1E8/4C23CD?text=P';">
+            <p>Portfolio</p>
+        </div>
+        <div class="desktop-icon" data-target="#contact">
+            <img src="https://placehold.co/64x64/EEB1E8/4C23CD?text=C" alt="Contact Icon" onerror="this.onerror=null;this.src='https://placehold.co/64x64/EEB1E8/4C23CD?text=C';">
+            <p>Contact</p>
+        </div>
+    </div>
+
+    <!-- (UBAH) Menambahkan class "hidden" agar jendela tersembunyi saat awal -->
+    <section id="about" class="about-section window-frame hidden">
         <div class="window-title-bar">
             <span>About Me</span>
             <div class="controls">
@@ -66,7 +87,7 @@
         </div>
         <div class="window-content-inner about-content">
             <div class="about-header">
-                <img src="images/Alienn.png" alt="Atha">
+                <img src="images/Alienn.png" alt="Atha" onerror="this.onerror=null;this.src='https://placehold.co/40x40/EEB1E8/4C23CD?text=A';">
                 <div>
                     <p class="username">AthaDea <span class="handle">@TanpaSambal</span></p>
                 </div>
@@ -85,7 +106,7 @@
         </div>
     </section>
 
-    <section id="skills" class="skills-section window-frame">
+    <section id="skills" class="skills-section window-frame hidden">
         <div class="window-title-bar">
             <span>Skills</span>
             <div class="controls">
@@ -96,47 +117,47 @@
         <div class="window-content-inner skills-content">
             <div class="skills-grid">
                 <div class="skill-icon-item">
-                    <img src="images/html.png" alt="HTML5 Icon">
+                    <img src="images/html.png" alt="HTML5 Icon" onerror="this.onerror=null;this.src='https://placehold.co/64x64/EEB1E8/4C23CD?text=HTML';">
                     <p>HTML5</p>
                     <div class="skill-level">Advanced</div>
                 </div>
                 <div class="skill-icon-item">
-                    <img src="images/css.png" alt="CSS3 Icon">
+                    <img src="images/css.png" alt="CSS3 Icon" onerror="this.onerror=null;this.src='https://placehold.co/64x64/EEB1E8/4C23CD?text=CSS';">
                     <p>CSS3</p>
                     <div class="skill-level">Advanced</div>
                 </div>
                 <div class="skill-icon-item">
-                    <img src="images/javascript.png" alt="JavaScript Icon">
+                    <img src="images/javascript.png" alt="JavaScript Icon" onerror="this.onerror=null;this.src='https://placehold.co/64x64/EEB1E8/4C23CD?text=JS';">
                     <p>JavaScript</p>
                     <div class="skill-level">Intermediate</div>
                 </div>
                 <div class="skill-icon-item">
-                    <img src="images/python.png" alt="Python Icon">
+                    <img src="images/python.png" alt="Python Icon" onerror="this.onerror=null;this.src='https://placehold.co/64x64/EEB1E8/4C23CD?text=Py';">
                     <p>Python</p>
                     <div class="skill-level">Intermediate</div>
                 </div>
                 <div class="skill-icon-item">
-                    <img src="images/php.png" alt="php">
+                    <img src="images/php.png" alt="php" onerror="this.onerror=null;this.src='https://placehold.co/64x64/EEB1E8/4C23CD?text=PHP';">
                     <p>PHP</p>
                     <div class="skill-level">Beginner</div>
                 </div>
                 <div class="skill-icon-item">
-                    <img src="images/java.png" alt="java">
+                    <img src="images/java.png" alt="java" onerror="this.onerror=null;this.src='https://placehold.co/64x64/EEB1E8/4C23CD?text=Java';">
                     <p>Java</p>
                     <div class="skill-level">Beginner</div>
                 </div>
                 <div class="skill-icon-item">
-                    <img src="images/sql.png" alt="sql">
+                    <img src="images/sql.png" alt="sql" onerror="this.onerror=null;this.src='https://placehold.co/64x64/EEB1E8/4C23CD?text=SQL';">
                     <p>SQL</p>
                     <div class="skill-level">Beginner</div>
                 </div>
                 <div class="skill-icon-item">
-                    <img src="images/burp-suite.png" alt="burp-suite">
+                    <img src="images/burp-suite.png" alt="burp-suite" onerror="this.onerror=null;this.src='https://placehold.co/64x64/EEB1E8/4C23CD?text=Burp';">
                     <p>Burp Suite</p>
                     <div class="skill-level">Intermediate</div>
                 </div>
                 <div class="skill-icon-item">
-                    <img src="images/ui.png" alt="web">
+                    <img src="images/ui.png" alt="web" onerror="this.onerror=null;this.src='https://placehold.co/64x64/EEB1E8/4C23CD?text=UI';">
                     <p>UI</p>
                     <div class="skill-level">Intermediate</div>
                 </div>
@@ -144,7 +165,7 @@
         </div>
     </section>
 
-    <section id="portfolio" class="portfolio-section window-frame">
+    <section id="portfolio" class="portfolio-section window-frame hidden">
         <div class="window-title-bar">
             <span>Portfolio</span>
             <div class="controls">
@@ -165,7 +186,7 @@
         </div>
     </section>
 
-    <section id="contact" class="contact-section window-frame">
+    <section id="contact" class="contact-section window-frame hidden">
         <div class="window-title-bar">
             <span>Contact Me</span>
             <div class="controls">
@@ -183,12 +204,12 @@
                         </div>
                         <div class="window-content-inner chat-content">
                             <div class="chat-bubble received">
-                                <img src="images/Blank-Profile.png" alt="guest" class="chat-avatar" />
+                                <img src="images/Blank-Profile.png" alt="guest" class="chat-avatar" onerror="this.onerror=null;this.src='https://placehold.co/32x32/EEB1E8/4C23CD?text=G';">
                                 <span>How can I reach you out?</span>
                             </div>
                             <div class="chat-bubble sent">
                                 <span>Just slide to my dm &lt;3 /Jk</span>
-                                <img src="images/Alienn.png" alt="Atha" class="chat-avatar" />
+                                <img src="images/Alienn.png" alt="Atha" class="chat-avatar" onerror="this.onerror=null;this.src='https://placehold.co/32x32/EEB1E8/4C23CD?text=A';">
                             </div>
                         </div>
                     </div>
@@ -200,7 +221,7 @@
                         <div class="window-content-inner others-content">
                             <p>I'm also available in:</p>
                             <div class="social-links-container">
-                                <a href="https://www.linkedin.com/in/athaillah-dea-arkananta-556b7928a/" target="_blank"><img src="images/linkedin.png" alt="LinkedIn"></a>
+                                <a href="https://www.linkedin.com/in/athaillah-dea-arkananta-556b7928a/" target="_blank"><img src="images/linkedin.png" alt="LinkedIn" onerror="this.onerror=null;this.src='https://placehold.co/32x32/EEB1E8/4C23CD?text=in';"></a>
                             </div>
                         </div>
                     </div>
@@ -213,7 +234,7 @@
                         </div>
                         <div class="window-content-inner">
                             <form id="contact-form" class="email-form">
-                                <img src="images/globe.png" alt="globe icon" class="form-icon">
+                                <img src="images/globe.png" alt="globe icon" class="form-icon" onerror="this.onerror=null;this.src='https://placehold.co/48x48/EEB1E8/4C23CD?text=E';">
                                 
                                 <label for="name">Name</label>
                                 <input type="text" id="name" name="name" class="retro-input" placeholder="Your Name here!" required>
