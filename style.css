@@ -23,19 +23,19 @@ body {
     -moz-osx-font-smoothing: grayscale;
     image-rendering: pixelated;
     overflow: hidden;
-    position: relative;
+    position: relative; /* Diperlukan untuk elemen dekoratif */
 }
 
-/* Dekorasi pilar di sisi kiri dan kanan DIGANTI dengan efek teks */
+/* (DIKEMBALIKAN) Dekorasi pilar di sisi kiri dan kanan */
 body::before,
 body::after {
     content: '';
     position: fixed;
     top: 0;
     bottom: 0;
-    width: 200px; /* Lebar area teks berjatuhan */
+    width: 200px; /* Lebar pilar dekoratif */
+    background-image: linear-gradient(to bottom, #EEB1E8, #4C23CD, #2c003e); /* Dikembalikan ke gradient */
     z-index: -1;
-    overflow: hidden; /* Penting untuk menjaga teks tetap di dalam area */
 }
 
 body::before {
@@ -46,34 +46,9 @@ body::after {
     right: 0;
 }
 
-/* Gaya untuk teks berjatuhan */
-.falling-text {
-    position: absolute;
-    color: #EEB1E8; /* Warna teks yang kontras dengan latar */
-    font-size: 1.2em; /* Ukuran teks */
-    white-space: nowrap;
-    opacity: 0;
-    animation: fall 10s linear infinite; /* Animasi jatuh */
-    pointer-events: none; /* Agar tidak mengganggu interaksi mouse */
-    text-shadow: 1px 1px 0px #4C23CD; /* Tambahkan sedikit shadow agar lebih terbaca */
-}
-
-@keyframes fall {
-    0% {
-        transform: translateY(-20px) translateX(0);
-        opacity: 0;
-    }
-    10% {
-        opacity: 1;
-    }
-    90% {
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(100vh) translateX(0);
-        opacity: 0;
-    }
-}
+/* (DIHAPUS) Gaya untuk teks berjatuhan - Tidak lagi diperlukan */
+/* .falling-text { ... } */
+/* @keyframes fall { ... } */
 
 
 button, a {
@@ -244,15 +219,21 @@ button, a {
     font-size: 0.8em;
 }
 
+/* (UBAH) Penyesuaian posisi ikon desktop */
 #desktop-container {
-    position: fixed; /* Menggunakan fixed agar tidak bergerak saat scroll */
-    top: 180px; /* Posisi di bawah header */
-    left: 20px; /* Posisi di kiri, menyesuaikan dengan margin kiri pilar */
+    position: absolute; /* Kembali ke absolute */
+    top: 180px; /* Posisi relatif terhadap body, di bawah header */
+    left: 50%; /* Tengah */
+    transform: translateX(-50%); /* Penyesuaian agar benar-benar di tengah */
+    width: calc(100vw - 72px); /* Mengikuti lebar main-header */
+    max-width: 900px; /* Mengikuti max-width main-header */
+    margin: 0 auto; /* Untuk centering dengan width */
+    padding-left: 20px; /* Menyesuaikan agar ikon lebih ke kiri */
     display: flex;
     flex-direction: column; /* Tata letak vertikal */
     gap: 20px; /* Jarak antar ikon */
-    width: auto;
-    z-index: 5; /* Agar berada di atas falling text tapi di bawah jendela utama */
+    align-items: flex-start; /* Sejajarkan ke kiri dalam container */
+    z-index: 5; /* Agar berada di atas pilar tapi di bawah jendela utama */
 }
 
 .desktop-icon {
