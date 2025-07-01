@@ -159,10 +159,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const contactForm = document.getElementById('contact-form');
     if (contactForm) {
         const sendButton = contactForm.querySelector('.send-button');
-        contactForm.addEventListener('submit', async function(e) { // (UBAH) Tambahkan 'async' di sini
+        contactForm.addEventListener('submit', async function(e) {
             e.preventDefault();
 
-            // (BARU) Validasi reCAPTCHA di frontend
+            // Validasi reCAPTCHA di frontend
             const recaptchaResponse = grecaptcha.getResponse(); // Mendapatkan token reCAPTCHA
             if (recaptchaResponse.length === 0) {
                 alert("Please complete the reCAPTCHA to send your message.");
@@ -170,36 +170,37 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             const formData = new FormData(contactForm);
-            // (BARU) Tambahkan reCAPTCHA response ke FormData
             formData.append('g-recaptcha-response', recaptchaResponse); // Penting untuk Formspree
 
             const originalButtonText = sendButton.textContent;
             sendButton.textContent = 'SENDING...';
             sendButton.disabled = true;
 
-            try { // (BARU) Gunakan try-catch untuk penanganan error fetch yang lebih baik
+            try {
+                // MASALAHNYA ADA DI SINI ATAU DI CONFIGURASI VERCEL/FORMSPREE
                 const response = await fetch(import.meta.env.VITE_FORMSPREE_URL, {
                     method: 'POST',
-                    body: formData, // (UBAH) Kirim FormData langsung, bukan JSON.stringify
-                    headers: { 'Accept': 'application/json' } // (UBAH) Hapus 'Content-Type': 'application/json'
+                    body: formData,
+                    headers: { 'Accept': 'application/json' }
                 });
 
                 if (response.ok) {
                     sendButton.textContent = 'SENT! :D';
                     contactForm.reset();
-                    grecaptcha.reset(); // (BARU) Reset reCAPTCHA setelah submit berhasil
+                    grecaptcha.reset(); // Reset reCAPTCHA setelah submit berhasil
                 } else {
-                    const data = await response.json(); // (UBAH) Tangani respons JSON untuk pesan error
+                    const data = await response.json();
                     if (Object.hasOwn(data, 'errors')) {
                         alert(data["errors"].map(error => error["message"]).join(", "));
                     } else {
-                        alert('Oops! There was a problem submitting your form');
+                        // Ini adalah jalur yang akan dipicu oleh "Domain tidak valid" dari reCAPTCHA server-side
+                        alert('Oops! There was a problem submitting your form. Please check your reCAPTCHA configuration.');
                     }
                     sendButton.textContent = 'ERROR :(';
                 }
             } catch (error) {
                 alert('Oops! There was a problem with the network or server connection.');
-                console.error('Fetch error:', error); // Log error ke console
+                console.error('Fetch error:', error);
                 sendButton.textContent = 'ERROR :(';
             } finally {
                 setTimeout(() => {
