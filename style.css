@@ -13,7 +13,7 @@ html {
 body {
     margin: 0;
     padding: 0;
-    background-color: #F8EBFF; /* (KEMBALIKAN) Latar belakang kembali ke warna solid */
+    background-color: #F8EBFF;
     font-family: 'Press Start 2P', cursive;
     color: #4C23CD;
     font-size: 14px;
@@ -25,8 +25,6 @@ body {
     overflow: hidden;
     position: relative;
 }
-
-/* (HAPUS) Dekorasi pilar di sisi kiri dan kanan dihapus */
 
 button, a {
     -webkit-tap-highlight-color: transparent;
@@ -196,7 +194,6 @@ button, a {
     font-size: 0.8em;
 }
 
-/* (KEMBALIKAN) Mengembalikan posisi ikon desktop ke kiri */
 #desktop-container {
     position: absolute;
     top: 180px;
@@ -498,11 +495,11 @@ button, a {
 .project-description {
     background-color: #EEB1E8;
     border: 2px solid #4C23CD;
-    padding: 8px;
-    width: 80%;
-    max-width: 400px;
+    padding: 8px 12px; /* (UBAH) Sedikit penyesuaian padding */
+    width: 90%; /* (UBAH) Lebar deskripsi diperkecil */
+    max-width: 380px; /* (UBAH) Batas lebar maksimal diperkecil */
     text-align: center;
-    font-size: 0.8em;
+    font-size: 0.75em; /* (UBAH) Ukuran font diperkecil */
     box-shadow: 2px 2px 0px 0px #808080;
     opacity: 0;
     transform: translateY(10px);
@@ -513,6 +510,8 @@ button, a {
 .project-description p {
     margin: 0;
     color: #4C23CD;
+    text-align: justify; /* (UBAH) Teks menjadi rata kiri-kanan */
+    line-height: 1.5; /* (TAMBAH) Memberi sedikit ruang antar baris */
 }
 
 .project-card-container:hover .project-description {
@@ -526,19 +525,27 @@ button, a {
 /* ======================================= */
 .contact-content {
     background-color: #d6e4f0;
-    padding: 30px;
+    padding: 20px; /* (UBAH) Mengurangi padding konten utama */
 }
 
 .contact-grid-container {
     display: grid;
-    grid-template-columns: 1fr; /* (UBAH) Default menjadi 1 kolom agar lebih sempit */
-    gap: 20px; /* (UBAH) Mengurangi jarak */
+    grid-template-columns: 1fr;
+    gap: 20px;
 }
+
+/* (TAMBAH) Media query untuk membuat layout 2 kolom di layar lebih besar */
+@media (min-width: 820px) {
+    .contact-grid-container {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
 
 .contact-left-column {
     display: flex;
     flex-direction: column;
-    gap: 20px; /* (UBAH) Mengurangi jarak */
+    gap: 20px;
 }
 
 .contact-sub-window {
@@ -837,10 +844,6 @@ button, a {
     }
     .project-card {
         width: 80%;
-    }
-    /* (UBAH) Mengembalikan layout 2 kolom di layar lebih besar */
-    .contact-grid-container {
-        grid-template-columns: 1fr 1fr;
     }
 }
 
