@@ -424,10 +424,10 @@ button, a {
 }
 
 .project-card-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
+    position: relative; /* (UBAH) Ini penting agar deskripsi absolut berada di dalamnya */
+    width: 100%;
+    max-width: 400px;
+    min-width: 300px;
 }
 
 .project-card {
@@ -438,8 +438,6 @@ button, a {
     box-shadow: 2px 2px 0px 0px #808080;
     transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
     width: 100%;
-    max-width: 400px;
-    min-width: 300px;
 }
 
 .project-card:hover {
@@ -493,30 +491,34 @@ button, a {
 }
 
 .project-description {
+    position: absolute; /* (UBAH) Dikeluarkan dari alur dokumen */
+    bottom: -10px; /* (UBAH) Posisi di bawah kartu */
+    left: 50%;
+    transform: translateX(-50%) translateY(10px); /* (UBAH) Posisi awal untuk animasi */
     background-color: #EEB1E8;
     border: 2px solid #4C23CD;
-    padding: 8px 12px; /* (UBAH) Sedikit penyesuaian padding */
-    width: 90%; /* (UBAH) Lebar deskripsi diperkecil */
-    max-width: 380px; /* (UBAH) Batas lebar maksimal diperkecil */
+    padding: 8px 12px;
+    width: 90%;
+    max-width: 380px;
     text-align: center;
-    font-size: 0.75em; /* (UBAH) Ukuran font diperkecil */
+    font-size: 0.75em;
     box-shadow: 2px 2px 0px 0px #808080;
     opacity: 0;
-    transform: translateY(10px);
     transition: opacity 0.3s ease, transform 0.3s ease;
     pointer-events: none;
+    z-index: 2; /* Pastikan di atas kartu lain jika tumpang tindih */
 }
 
 .project-description p {
     margin: 0;
     color: #4C23CD;
-    text-align: justify; /* (UBAH) Teks menjadi rata kiri-kanan */
-    line-height: 1.5; /* (TAMBAH) Memberi sedikit ruang antar baris */
+    text-align: justify;
+    line-height: 1.5;
 }
 
 .project-card-container:hover .project-description {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(-50%) translateY(100%); /* (UBAH) Animasi muncul ke bawah */
 }
 
 
@@ -525,7 +527,7 @@ button, a {
 /* ======================================= */
 .contact-content {
     background-color: #d6e4f0;
-    padding: 20px; /* (UBAH) Mengurangi padding konten utama */
+    padding: 20px;
 }
 
 .contact-grid-container {
@@ -534,7 +536,6 @@ button, a {
     gap: 20px;
 }
 
-/* (TAMBAH) Media query untuk membuat layout 2 kolom di layar lebih besar */
 @media (min-width: 820px) {
     .contact-grid-container {
         grid-template-columns: 1fr 1fr;
