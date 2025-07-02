@@ -425,8 +425,7 @@ button, a {
 
 .project-card-container {
     position: relative;
-    width: 100%;
-    max-width: 400px; /* (UBAH) Lebar kartu disesuaikan */
+    max-width: 400px;
     min-width: 300px;
 }
 
