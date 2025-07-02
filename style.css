@@ -484,7 +484,7 @@ button, a {
     padding: 0;
     border: none;
     overflow: hidden;
-    height: 225px; /* (UBAH) Memberi tinggi tetap agar gambar pas */
+    height: 225px; 
     background-color: #FFF8FF;
 }
 
@@ -522,7 +522,7 @@ button, a {
 
 
 /* ======================================= */
-/* 7. Contact Section Styles               */
+/* 7. Contact Section Styles (UPDATED)     */
 /* ======================================= */
 .contact-content {
     background-color: #d6e4f0;
@@ -531,14 +531,14 @@ button, a {
 
 .contact-grid-container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
+    grid-template-columns: 1fr; /* (UBAH) Default menjadi 1 kolom agar lebih sempit */
+    gap: 20px; /* (UBAH) Mengurangi jarak */
 }
 
 .contact-left-column {
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 20px; /* (UBAH) Mengurangi jarak */
 }
 
 .contact-sub-window {
@@ -612,7 +612,7 @@ button, a {
 .email-form {
     display: flex;
     flex-direction: column;
-    gap: 8px; /* (UBAH) Mengurangi jarak antar elemen form */
+    gap: 8px;
     text-align: center;
 }
 .form-icon {
@@ -624,7 +624,7 @@ button, a {
 .email-form label {
     text-align: left;
     font-size: 0.8em;
-    margin-bottom: -4px; /* (UBAH) Mendekatkan label ke input */
+    margin-bottom: -4px;
 }
 .retro-input {
     width: 100%;
@@ -649,7 +649,7 @@ button, a {
     cursor: pointer;
     font-weight: bold;
     align-self: center;
-    margin-top: 5px; /* (UBAH) Mengurangi jarak tombol dari atas */
+    margin-top: 5px;
 }
 .send-button:active {
     background-color: #ce9ac8;
@@ -838,8 +838,9 @@ button, a {
     .project-card {
         width: 80%;
     }
+    /* (UBAH) Mengembalikan layout 2 kolom di layar lebih besar */
     .contact-grid-container {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr;
     }
 }
 
@@ -850,9 +851,6 @@ button, a {
     }
     .project-card {
         width: calc(50% - 15px);
-    }
-    .contact-grid-container {
-        grid-template-columns: 1fr 1fr;
     }
 }
 
