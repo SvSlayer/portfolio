@@ -414,18 +414,23 @@ button, a {
 .portfolio-content {
     background-color: #d6e4f0;
     padding: 30px;
+    display: flex; /* Ditambahkan */
+    align-items: center; /* Ditambahkan */
+    justify-content: center; /* Ditambahkan */
+    min-height: 450px; /* Ditambahkan */
 }
 
 .portfolio-grid {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 30px;
+    gap: 40px; /* Diubah */
+    width: 100%;
 }
 
 .project-card-container {
     position: relative;
-    max-width: 400px;
+    flex: 0 1 380px; /* Diubah */
     min-width: 300px;
 }
 
@@ -832,6 +837,8 @@ button, a {
 /* ======================================= */
 
 /* For Tablets (min-width: 768px) */
+/* Aturan di bawah ini dinonaktifkan karena menyebabkan layout menjadi kolom tunggal */
+/*
 @media (min-width: 768px) {
     .progress-item {
         margin-bottom: 0;
@@ -844,14 +851,15 @@ button, a {
         width: 80%;
     }
 }
+*/
 
 /* For Desktops (min-width: 1024px) */
 @media (min-width: 1024px) {
     .portfolio-grid {
         flex-direction: row;
     }
-    .project-card {
-        width: calc(50% - 15px);
+    .project-card-container { /* Diubah untuk menarget container */
+        flex-basis: calc(50% - 20px); /* 20px adalah setengah dari gap */
     }
 }
 
