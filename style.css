@@ -426,7 +426,7 @@ button, a {
 .project-card-container {
     position: relative;
     width: 100%;
-    max-width: 450px;
+    max-width: 400px; /* (UBAH) Sedikit penyesuaian lebar */
     min-width: 300px;
 }
 
@@ -479,7 +479,7 @@ button, a {
     padding: 0;
     border: none;
     overflow: hidden;
-    aspect-ratio: 16 / 10; /* (UBAH) Menggunakan aspect-ratio untuk proporsi landscape */
+    aspect-ratio: 16 / 9; /* (UBAH) Menggunakan aspect-ratio untuk proporsi landscape */
     background-color: #FFF8FF;
 }
 
@@ -501,7 +501,7 @@ button, a {
     width: 90%;
     max-width: 420px;
     text-align: center;
-    font-size: 0.65em; /* (UBAH) Font diperkecil lagi */
+    font-size: 0.65em;
     box-shadow: 2px 2px 0px 0px #808080;
     opacity: 0;
     transition: opacity 0.3s ease, transform 0.3s ease;
@@ -513,7 +513,7 @@ button, a {
     margin: 0;
     color: #4C23CD;
     text-align: justify;
-    line-height: 1.4; /* (UBAH) Mengurangi jarak baris */
+    line-height: 1.4;
 }
 
 .project-card-container:hover .project-description {
@@ -620,19 +620,19 @@ button, a {
 .email-form {
     display: flex;
     flex-direction: column;
-    gap: 5px; /* (UBAH) Mengurangi jarak antar elemen form */
+    gap: 5px;
     text-align: center;
 }
 .form-icon {
     width: 48px;
     height: 48px;
-    margin: 0 auto 5px auto; /* (UBAH) Mengurangi margin bawah */
+    margin: 0 auto 5px auto;
     image-rendering: pixelated;
 }
 .email-form label {
     text-align: left;
     font-size: 0.8em;
-    margin-bottom: -2px; /* (UBAH) Mendekatkan label ke input */
+    margin-bottom: -2px;
 }
 .retro-input {
     width: 100%;
