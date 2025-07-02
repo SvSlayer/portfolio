@@ -426,7 +426,7 @@ button, a {
 .project-card-container {
     position: relative;
     width: 100%;
-    max-width: 400px; /* (UBAH) Sedikit penyesuaian lebar */
+    max-width: 500px; /* (UBAH) Kartu diperlebar */
     min-width: 300px;
 }
 
@@ -479,7 +479,7 @@ button, a {
     padding: 0;
     border: none;
     overflow: hidden;
-    aspect-ratio: 16 / 9; /* (UBAH) Menggunakan aspect-ratio untuk proporsi landscape */
+    aspect-ratio: 16 / 9; /* Proporsi landscape 16:9 */
     background-color: #FFF8FF;
 }
 
@@ -499,7 +499,7 @@ button, a {
     border: 2px solid #4C23CD;
     padding: 8px 12px;
     width: 90%;
-    max-width: 420px;
+    max-width: 480px; /* Disesuaikan dengan lebar kartu */
     text-align: center;
     font-size: 0.65em;
     box-shadow: 2px 2px 0px 0px #808080;
