@@ -424,9 +424,9 @@ button, a {
 }
 
 .project-card-container {
-    position: relative; /* (UBAH) Ini penting agar deskripsi absolut berada di dalamnya */
+    position: relative;
     width: 100%;
-    max-width: 400px;
+    max-width: 450px; /* (UBAH) Dibuat lebih lebar */
     min-width: 300px;
 }
 
@@ -479,7 +479,7 @@ button, a {
     padding: 0;
     border: none;
     overflow: hidden;
-    height: 225px; 
+    height: 250px; /* (UBAH) Tinggi disesuaikan agar proporsional */
     background-color: #FFF8FF;
 }
 
@@ -491,22 +491,22 @@ button, a {
 }
 
 .project-description {
-    position: absolute; /* (UBAH) Dikeluarkan dari alur dokumen */
-    bottom: -10px; /* (UBAH) Posisi di bawah kartu */
+    position: absolute;
+    bottom: -10px;
     left: 50%;
-    transform: translateX(-50%) translateY(10px); /* (UBAH) Posisi awal untuk animasi */
+    transform: translateX(-50%) translateY(10px);
     background-color: #EEB1E8;
     border: 2px solid #4C23CD;
     padding: 8px 12px;
     width: 90%;
-    max-width: 380px;
+    max-width: 420px;
     text-align: center;
-    font-size: 0.75em;
+    font-size: 0.7em; /* (UBAH) Font diperkecil lagi */
     box-shadow: 2px 2px 0px 0px #808080;
     opacity: 0;
     transition: opacity 0.3s ease, transform 0.3s ease;
     pointer-events: none;
-    z-index: 2; /* Pastikan di atas kartu lain jika tumpang tindih */
+    z-index: 2;
 }
 
 .project-description p {
@@ -518,7 +518,7 @@ button, a {
 
 .project-card-container:hover .project-description {
     opacity: 1;
-    transform: translateX(-50%) translateY(100%); /* (UBAH) Animasi muncul ke bawah */
+    transform: translateX(-50%) translateY(100%);
 }
 
 
